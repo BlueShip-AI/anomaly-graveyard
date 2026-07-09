@@ -1,0 +1,353 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walk the gallery — The Risk Museum</title>
+<style>
+* { box-sizing:border-box; margin:0 }
+html,body { height:100%; overflow:hidden; background:#0e0d0b;
+  font:16px/1.5 Georgia,'Times New Roman',serif; }
+#c { position:absolute; inset:0; display:block }
+#enter { position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  background:rgba(14,13,11,.86); color:#e8e6e1; z-index:10; padding:1rem;
+  cursor:pointer }
+#enter h1 { font-size:2rem; letter-spacing:.02em }
+#enter .tag { letter-spacing:.22em; text-transform:uppercase;
+  font-size:.72rem; color:#9a9a9a; margin:.6rem 0 1.6rem }
+#enter p { color:#c9c6bf; max-width:34rem; margin-bottom:.6rem }
+#enter .keys { font-family:ui-monospace,Menlo,monospace; font-size:.85rem;
+  color:#9a9a9a; margin-top:1rem }
+#enter a { color:#7aa7cc }
+#hud { position:absolute; left:12px; bottom:10px; color:#bdbab2;
+  font-size:.78rem; z-index:5; opacity:.85 }
+#dot { position:absolute; left:50%; top:50%; width:5px; height:5px;
+  margin:-2.5px; border-radius:50%; background:#e8e6e1; opacity:0;
+  z-index:5; pointer-events:none }
+#label { position:absolute; left:50%; bottom:9%; transform:translateX(-50%);
+  color:#f0eee8; background:rgba(20,19,17,.72); border:1px solid #4a4842;
+  padding:.35rem .9rem; border-radius:6px; font-size:.9rem; opacity:0;
+  transition:opacity .18s; z-index:5; pointer-events:none }
+.pad { position:absolute; right:16px; bottom:16px; z-index:6; display:none;
+  gap:10px }
+.pad button { width:64px; height:64px; border-radius:50%;
+  border:1px solid #55524b; background:rgba(30,29,26,.7); color:#e8e6e1;
+  font:700 22px Georgia; }
+@media (pointer:coarse) { .pad { display:flex } }
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="dot"></div><div id="label"></div>
+<div id="hud">The Risk Museum &middot; gallery &middot; ESC to release the mouse</div>
+<div class="pad"><button id="bk">&#8595;</button><button id="fw">&#8593;</button></div>
+<div id="enter">
+  <h1>The Risk Museum</h1>
+  <div class="tag">Walk the gallery</div>
+  <p>A quiet hall. The Masterpieces on the west wall, the Tulip Wing to the
+  south, the curator&rsquo;s desk to the east &mdash; and the vault in the
+  middle, sealed, as always.</p>
+  <p class="keys">click to enter &middot; WASD / arrows to walk &middot;
+  mouse to look &middot; look at a frame and click to open it</p>
+  <p style="margin-top:1.2rem"><a href="./" onclick="event.stopPropagation()">&larr; back to the museum</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+const R = new THREE.WebGLRenderer({canvas: document.getElementById('c'), antialias: true});
+R.setPixelRatio(Math.min(devicePixelRatio, 2));
+R.outputColorSpace = THREE.SRGBColorSpace;
+R.toneMapping = THREE.ACESFilmicToneMapping;
+R.toneMappingExposure = 1.05;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x11100e);
+const cam = new THREE.PerspectiveCamera(66, 1, .05, 80);
+let yaw = 0, pitch = 0;
+const pos = new THREE.Vector3(0, 1.6, 5.2);
+
+function cv(w, h, fn) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  fn(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c);
+  t.anisotropy = R.capabilities.getMaxAnisotropy(); return t;
+}
+function noise(g, w, h, alpha, n) {
+  for (let i = 0; i < n; i++) {
+    g.fillStyle = `rgba(${120+Math.random()*60|0},${115+Math.random()*55|0},${105+Math.random()*50|0},${alpha})`;
+    g.fillRect(Math.random()*w, Math.random()*h, 1.6, 1.6);
+  }
+}
+const floorT = cv(1024, 1024, (g, w, h) => {
+  g.fillStyle = '#dbd6cb'; g.fillRect(0, 0, w, h);
+  noise(g, w, h, .16, 24000);
+  g.strokeStyle = 'rgba(120,112,100,.35)'; g.lineWidth = 1.4;
+  for (let i = 0; i < 26; i++) {
+    g.beginPath(); let x = Math.random()*w, y = Math.random()*h;
+    g.moveTo(x, y);
+    for (let s = 0; s < 6; s++) { x += (Math.random()-.5)*260; y += (Math.random()-.5)*260; g.lineTo(x, y); }
+    g.stroke();
+  }
+  g.strokeStyle = 'rgba(90,84,74,.5)'; g.lineWidth = 3;
+  for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i*w/4, 0); g.lineTo(i*w/4, h); g.stroke();
+    g.beginPath(); g.moveTo(0, i*h/4); g.lineTo(w, i*h/4); g.stroke(); }
+});
+floorT.wrapS = floorT.wrapT = THREE.RepeatWrapping; floorT.repeat.set(5, 3);
+const wallT = cv(512, 512, (g, w, h) => {
+  g.fillStyle = '#efe9dd'; g.fillRect(0, 0, w, h); noise(g, w, h, .10, 9000);
+});
+wallT.wrapS = wallT.wrapT = THREE.RepeatWrapping; wallT.repeat.set(6, 2);
+const woodT = cv(256, 256, (g, w, h) => {
+  g.fillStyle = '#3d2a1c'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 90; i++) {
+    g.strokeStyle = `rgba(${20+Math.random()*40|0},${12+Math.random()*22|0},8,${.25+Math.random()*.4})`;
+    g.lineWidth = 1 + Math.random()*2;
+    g.beginPath(); g.moveTo(0, Math.random()*h);
+    g.bezierCurveTo(w*.3, Math.random()*h, w*.7, Math.random()*h, w, Math.random()*h); g.stroke();
+  }
+});
+const darkT = cv(64, 64, g => { g.fillStyle = '#221f1b'; g.fillRect(0, 0, 64, 64); });
+
+const room = {w: 24, d: 14, h: 5.2};
+const mats = {
+  floor: new THREE.MeshStandardMaterial({map: floorT, roughness: .35, metalness: .08}),
+  wall: new THREE.MeshStandardMaterial({map: wallT, roughness: .9}),
+  wain: new THREE.MeshStandardMaterial({map: darkT, roughness: .6}),
+  ceil: new THREE.MeshStandardMaterial({color: 0xf4efe6, roughness: .95, side: THREE.DoubleSide}),
+  wood: new THREE.MeshStandardMaterial({map: woodT, roughness: .55}),
+  brass: new THREE.MeshStandardMaterial({color: 0x8a6f3a, roughness: .35, metalness: .8}),
+};
+function plane(w, h, m) { return new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); }
+const floor = plane(room.w, room.d, mats.floor);
+floor.rotation.x = -Math.PI/2; scene.add(floor);
+const ceil = plane(room.w, room.d, mats.ceil);
+ceil.rotation.x = Math.PI/2; ceil.position.y = room.h; scene.add(ceil);
+[[0, -room.d/2, 0], [0, room.d/2, Math.PI], [-room.w/2, 0, Math.PI/2], [room.w/2, 0, -Math.PI/2]]
+.forEach(([x, z, ry]) => {
+  const w = (Math.abs(x) > 0) ? room.d : room.w;
+  const wall = plane(w, room.h, mats.wall);
+  wall.position.set(x, room.h/2, z); wall.rotation.y = ry; scene.add(wall);
+  const wain = new THREE.Mesh(new THREE.BoxGeometry(w, .9, .06), mats.wain);
+  wain.position.set(x, .45, z); wain.rotation.y = ry;
+  wain.translateZ(.04); scene.add(wain);
+});
+
+const clickables = [];
+function placard(w, h, drawFn, opt = {}) {
+  const g2 = new THREE.Group();
+  const tex = cv(1024, Math.round(1024*h/w), drawFn);
+  const art = plane(w, h, new THREE.MeshStandardMaterial({map: tex, roughness: .85}));
+  const fm = opt.red
+    ? new THREE.MeshStandardMaterial({color: 0x6e2320, roughness: .5})
+    : mats.wood;
+  const frame = new THREE.Mesh(new THREE.BoxGeometry(w + .16, h + .16, .07), fm);
+  art.position.z = .045; g2.add(frame); g2.add(art);
+  if (opt.href) { art.userData = {href: opt.href, label: opt.label || ''}; clickables.push(art); }
+  return g2;
+}
+function hang(node, x, y, z, ry) { node.position.set(x, y, z); node.rotation.y = ry; scene.add(node); }
+function pText(g, lines, w, opts = {}) {
+  g.fillStyle = opts.bg || '#faf7f0'; g.fillRect(0, 0, w, g.canvas.height);
+  g.fillStyle = opts.ink || '#221f1b'; g.textAlign = 'center';
+  let y = opts.top || 130;
+  lines.forEach(L => {
+    g.font = L.f || '400 40px Georgia'; g.fillStyle = L.c || opts.ink || '#221f1b';
+    g.fillText(L.t, w/2, y); y += L.dy || 62;
+  });
+}
+
+const Z = room.d/2 - .06, X = room.w/2 - .06;
+hang(placard(4.4, 2.2, (g, w) => pText(g, [
+  {t: 'THE RISK MUSEUM', f: '700 92px Georgia', dy: 74},
+  {t: 'H O M E   O F   R I S K   M A S T E R P I E C E S', f: '400 30px Georgia', c: '#8a6f3a', dy: 96},
+  {t: 'Tested the way a quant desk would test them.', f: '400 40px Georgia', dy: 58},
+  {t: 'The permanent collection: the ones that didn’t survive.', f: 'italic 400 38px Georgia'},
+], w, {top: 150})), 0, 2.5, -Z, 0);
+const statsP = placard(3.0, 1.7, (g, w) => pText(g, [
+  {t: 'The collection', f: '700 56px Georgia', dy: 90},
+  {t: 'loading…', f: '400 42px Georgia'},
+], w), {href: './', label: 'The collection — main floor'});
+hang(statsP, -7.6, 2.4, -Z, 0);
+hang(placard(3.0, 1.7, (g, w) => pText(g, [
+  {t: 'Membership', f: '700 56px Georgia', dy: 84},
+  {t: 'Friend · Member · Patron · Benefactor', f: '400 38px Georgia', dy: 66},
+  {t: 'The vault is not for sale.', f: 'italic 400 40px Georgia', c: '#6e2320'},
+], w), {href: 'membership.html', label: 'Membership'}), 7.6, 2.4, -Z, 0);
+
+const masters = [
+  ['Soros v. the pound', '1992', 'capped loss, forced counterparty'],
+  ['The CDS trade', '2006–08', 'convexity bought cheap'],
+  ['The VW corner', '2008', 'the obligated buyer'],
+  ['Simons & Medallion', '1988–', 'breadth beats heroes'],
+  ['LTCM', '1998', 'asymmetry inverted — warning', true],
+];
+masters.forEach((m, i) => {
+  hang(placard(2.05, 1.5, (g, w) => pText(g, [
+    {t: m[0], f: '700 58px Georgia', dy: 76},
+    {t: m[1], f: '400 36px Georgia', c: '#8a6f3a', dy: 78},
+    {t: m[2], f: 'italic 400 40px Georgia', c: m[3] ? '#6e2320' : '#221f1b'},
+  ], w, {top: 150}), {href: 'masterpieces.html', label: m[0] + ' — Masterpieces Gallery', red: !!m[3]}),
+  -X, 2.35, -5.2 + i*2.6, Math.PI/2);
+});
+
+function tulipPainting(blue) {
+  return (g, w) => {
+    const h = g.canvas.height;
+    g.fillStyle = '#e9e2d2'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#cfc5a8'; g.fillRect(0, h*.72, w, h*.28);
+    for (let i = 0; i < 7; i++) {
+      const x = w*(.12 + i*.13), st = h*.72, top = h*(.28 + Math.random()*.18);
+      g.strokeStyle = '#5d6b4a'; g.lineWidth = 7;
+      g.beginPath(); g.moveTo(x, st); g.quadraticCurveTo(x + 12, (st+top)/2, x, top); g.stroke();
+      g.fillStyle = (blue && i === 3) ? '#2a5d8b' : '#8b2e2e';
+      g.beginPath();
+      g.ellipse(x, top - 26, 26, 38, 0, 0, Math.PI*2); g.fill();
+      g.fillStyle = (blue && i === 3) ? '#244f76' : '#77241f';
+      g.beginPath(); g.ellipse(x - 12, top - 30, 12, 30, -.25, 0, Math.PI*2); g.fill();
+    }
+  };
+}
+hang(placard(2.6, 1.9, tulipPainting(false), {href: './', label: 'The Tulip Wing — mania weather'}), -4.6, 2.4, Z, Math.PI);
+hang(placard(3.4, 2.2, tulipPainting(true), {href: './', label: 'The Tulip Wing — one is always different'}), 0, 2.5, Z, Math.PI);
+hang(placard(2.6, 1.9, (g, w) => pText(g, [
+  {t: 'Haarlem, 1637', f: '700 60px Georgia', dy: 84},
+  {t: 'measured, nightly', f: 'italic 400 42px Georgia', dy: 74},
+  {t: 'run-ups · crash base rates', f: '400 40px Georgia'},
+], w, {top: 160}), {href: './', label: 'Tulip screen — main floor'}), 4.6, 2.4, Z, Math.PI);
+
+const notes = [
+  ['Curator’s note № 1', 'I named a model after myself.', 'A 1993 model beat it.', 'notes/dimopoulos-chain-v1.html'],
+  ['Curator’s note № 2', 'I brought a neural network.', 'The 1993 model won again.', 'notes/neural-pricing-v1.html'],
+];
+notes.forEach((n, i) => {
+  hang(placard(2.0, 1.55, (g, w) => pText(g, [
+    {t: n[0], f: '400 40px Georgia', c: '#8a6f3a', dy: 84},
+    {t: n[1], f: 'italic 700 47px Georgia', dy: 62},
+    {t: n[2], f: 'italic 700 47px Georgia'},
+  ], w, {top: 130}), {href: n[3], label: n[0]}), X, 2.4, -3.4 + i*2.5, -Math.PI/2);
+});
+hang(placard(2.0, 1.55, (g, w) => pText(g, [
+  {t: 'The Reading Room', f: '700 54px Georgia', dy: 80},
+  {t: 'the curator’s shelf,', f: 'italic 400 42px Georgia', dy: 56},
+  {t: 'as operating system', f: 'italic 400 42px Georgia'},
+], w, {top: 140}), {href: 'reading-room.html', label: 'The Reading Room'}), X, 2.4, 1.9, -Math.PI/2);
+hang(placard(2.0, 1.55, (g, w) => pText(g, [
+  {t: 'Open collection', f: '700 54px Georgia', dy: 80},
+  {t: 'every exhibit, as data —', f: '400 40px Georgia', dy: 56},
+  {t: 'study it, prove us wrong', f: 'italic 400 40px Georgia'},
+], w, {top: 140}), {href: 'collection.json', label: 'collection.json'}), X, 2.4, 4.4, -Math.PI/2);
+
+const ped = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.0, 1.5), mats.wain);
+ped.position.set(0, .5, 0); scene.add(ped);
+const vault = new THREE.Mesh(new THREE.BoxGeometry(1.1, .9, 1.1),
+  new THREE.MeshStandardMaterial({color: 0x2a251f, roughness: .35, metalness: .25}));
+vault.position.set(0, 1.45, 0); scene.add(vault);
+const plq = plane(1.1, .34, new THREE.MeshStandardMaterial({
+  map: cv(512, 160, (g, w) => pText(g, [
+    {t: 'THE VAULT', f: '700 54px Georgia', c: '#f3e7c8', dy: 54},
+    {t: 'survivors withheld · not for sale', f: 'italic 400 30px Georgia', c: '#d9c691'},
+  ], w, {bg: '#4a3a1e', top: 62})), roughness: .4, metalness: .5}));
+plq.position.set(0, 1.02, .78); plq.rotation.x = -.25; scene.add(plq);
+const shadow = plane(2.6, 2.6, new THREE.MeshBasicMaterial({
+  color: 0x000000, transparent: true, opacity: .28}));
+shadow.rotation.x = -Math.PI/2; shadow.position.y = .012; scene.add(shadow);
+
+scene.add(new THREE.HemisphereLight(0xfff6e8, 0x35302a, .95));
+const fill = new THREE.PointLight(0xffe8cc, 14, 22, 1.8);
+fill.position.set(0, 2.6, 4.2); scene.add(fill);
+[[0, -Z + 1], [0, Z - 1], [-X + 1, 0], [X - 1, 0]].forEach(([x, z]) => {
+  const s = new THREE.SpotLight(0xffe9c8, 55, 16, .62, .55, 1.6);
+  s.position.set(x*.8, room.h - .3, z*.8);
+  s.target.position.set(x*1.2, 2.2, z*1.2); scene.add(s); scene.add(s.target);
+});
+const vs = new THREE.SpotLight(0xfff0d0, 40, 10, .5, .5, 1.5);
+vs.position.set(0, room.h - .2, 1.6); vs.target = vault; scene.add(vs);
+const strip = plane(room.w*.6, 1.2, new THREE.MeshBasicMaterial({color: 0xfff3dd, side: THREE.DoubleSide}));
+strip.rotation.x = Math.PI/2; strip.position.y = room.h - .02; scene.add(strip);
+window._g = {look: (x, z, y) => { pos.set(x, 1.6, z); yaw = y; }};
+
+fetch('collection.json').then(r => r.json()).then(d => {
+  const art = statsP.children[1];
+  art.material.map = cv(1024, 580, (g, w) => pText(g, [
+    {t: 'The collection', f: '700 56px Georgia', dy: 88},
+    {t: `${d.works_tested} works tested`, f: '400 46px Georgia', dy: 62},
+    {t: `${d.exhibits.length} now on view`, f: '400 46px Georgia', dy: 62},
+    {t: `${d.in_the_vault} held in the vault`, f: '400 46px Georgia', dy: 70},
+    {t: 'updated nightly by the machine', f: 'italic 400 34px Georgia', c: '#8a6f3a'},
+  ], w, {top: 108}));
+  art.material.needsUpdate = true;
+}).catch(() => {});
+
+const keys = {};
+addEventListener('keydown', e => keys[e.code] = true);
+addEventListener('keyup', e => keys[e.code] = false);
+const enter = document.getElementById('enter'), dot = document.getElementById('dot'),
+      label = document.getElementById('label');
+let locked = false, touchWalk = 0;
+enter.addEventListener('click', () => {
+  if (matchMedia('(pointer:coarse)').matches) { enter.style.display = 'none'; return; }
+  document.body.requestPointerLock();
+});
+document.addEventListener('pointerlockchange', () => {
+  locked = !!document.pointerLockElement;
+  enter.style.display = locked ? 'none' : 'flex';
+  dot.style.opacity = locked ? .8 : 0;
+});
+addEventListener('mousemove', e => {
+  if (!locked) return;
+  yaw -= e.movementX * .0021; pitch -= e.movementY * .0021;
+  pitch = Math.max(-1.2, Math.min(1.2, pitch));
+});
+let lastTouch = null;
+addEventListener('touchstart', e => { if (e.target.tagName !== 'BUTTON') lastTouch = e.touches[0]; });
+addEventListener('touchmove', e => {
+  if (!lastTouch || e.target.tagName === 'BUTTON') return;
+  const t = e.touches[0];
+  yaw -= (t.clientX - lastTouch.clientX) * .005;
+  pitch = Math.max(-1.2, Math.min(1.2, pitch - (t.clientY - lastTouch.clientY) * .005));
+  lastTouch = t;
+});
+addEventListener('touchend', () => lastTouch = null);
+document.getElementById('fw').addEventListener('touchstart', () => touchWalk = 1);
+document.getElementById('fw').addEventListener('touchend', () => touchWalk = 0);
+document.getElementById('bk').addEventListener('touchstart', () => touchWalk = -1);
+document.getElementById('bk').addEventListener('touchend', () => touchWalk = 0);
+
+const ray = new THREE.Raycaster();
+addEventListener('click', () => {
+  if (!locked && !matchMedia('(pointer:coarse)').matches) return;
+  ray.setFromCamera(new THREE.Vector2(0, 0), cam);
+  const hit = ray.intersectObjects(clickables)[0];
+  if (hit && hit.distance < 7) location.href = hit.object.userData.href;
+});
+
+const clock = new THREE.Clock();
+function frame() {
+  requestAnimationFrame(frame);
+  const dt = Math.min(clock.getDelta(), .05), sp = 2.6 * dt;
+  const f = new THREE.Vector3(Math.sin(yaw), 0, Math.cos(yaw));
+  const r = new THREE.Vector3(f.z, 0, -f.x);
+  let m = new THREE.Vector3();
+  if (keys.KeyW || keys.ArrowUp || touchWalk === 1) m.sub(f);
+  if (keys.KeyS || keys.ArrowDown || touchWalk === -1) m.add(f);
+  if (keys.KeyA || keys.ArrowLeft) m.sub(r);
+  if (keys.KeyD || keys.ArrowRight) m.add(r);
+  if (m.lengthSq()) { m.normalize().multiplyScalar(sp); pos.add(m); }
+  pos.x = Math.max(-X + .9, Math.min(X - .9, pos.x));
+  pos.z = Math.max(-Z + .9, Math.min(Z - .9, pos.z));
+  if (Math.abs(pos.x) < 1.6 && Math.abs(pos.z) < 1.6) {
+    (Math.abs(pos.x) > Math.abs(pos.z))
+      ? pos.x = Math.sign(pos.x) * 1.6 : pos.z = Math.sign(pos.z) * 1.6;
+  }
+  cam.position.copy(pos);
+  cam.quaternion.setFromEuler(new THREE.Euler(pitch, yaw, 0, 'YXZ'));
+  if (locked || matchMedia('(pointer:coarse)').matches) {
+    ray.setFromCamera(new THREE.Vector2(0, 0), cam);
+    const hit = ray.intersectObjects(clickables)[0];
+    if (hit && hit.distance < 7) {
+      label.textContent = hit.object.userData.label + '  — click to open';
+      label.style.opacity = 1;
+    } else label.style.opacity = 0;
+  }
+  const W = innerWidth, H = innerHeight;
+  if (R.domElement.width !== W * R.getPixelRatio() || R.domElement.height !== H * R.getPixelRatio()) {
+    R.setSize(W, H, false); cam.aspect = W/H; cam.updateProjectionMatrix();
+  }
+  R.render(scene, cam);
+}
+frame();
+</script></body></html>
