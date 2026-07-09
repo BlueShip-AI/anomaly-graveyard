@@ -3,33 +3,33 @@
 <title>Walk the gallery — The Risk Museum</title>
 <style>
 * { box-sizing:border-box; margin:0 }
-html,body { height:100%; overflow:hidden; background:#0e0d0b;
+html,body { height:100%; overflow:hidden; background:#dfe8ee;
   font:16px/1.5 Georgia,'Times New Roman',serif; }
 #c { position:absolute; inset:0; display:block }
 #enter { position:absolute; inset:0; display:flex; flex-direction:column;
   align-items:center; justify-content:center; text-align:center;
-  background:rgba(14,13,11,.86); color:#e8e6e1; z-index:10; padding:1rem;
+  background:rgba(248,246,240,.88); color:#2b2924; z-index:10; padding:1rem;
   cursor:pointer }
 #enter h1 { font-size:2rem; letter-spacing:.02em }
 #enter .tag { letter-spacing:.22em; text-transform:uppercase;
-  font-size:.72rem; color:#9a9a9a; margin:.6rem 0 1.6rem }
-#enter p { color:#c9c6bf; max-width:34rem; margin-bottom:.6rem }
+  font-size:.72rem; color:#7c766a; margin:.6rem 0 1.6rem }
+#enter p { color:#4c473e; max-width:34rem; margin-bottom:.6rem }
 #enter .keys { font-family:ui-monospace,Menlo,monospace; font-size:.85rem;
-  color:#9a9a9a; margin-top:1rem }
-#enter a { color:#7aa7cc }
-#hud { position:absolute; left:12px; bottom:10px; color:#bdbab2;
-  font-size:.78rem; z-index:5; opacity:.85 }
+  color:#7c766a; margin-top:1rem }
+#enter a { color:#2a5d8b }
+#hud { position:absolute; left:12px; bottom:10px; color:#5d574c;
+  font-size:.78rem; z-index:5; opacity:.9 }
 #dot { position:absolute; left:50%; top:50%; width:5px; height:5px;
-  margin:-2.5px; border-radius:50%; background:#e8e6e1; opacity:0;
+  margin:-2.5px; border-radius:50%; background:#2b2924; opacity:0;
   z-index:5; pointer-events:none }
 #label { position:absolute; left:50%; bottom:9%; transform:translateX(-50%);
-  color:#f0eee8; background:rgba(20,19,17,.72); border:1px solid #4a4842;
+  color:#2b2924; background:rgba(250,248,242,.85); border:1px solid #cfc8ba;
   padding:.35rem .9rem; border-radius:6px; font-size:.9rem; opacity:0;
   transition:opacity .18s; z-index:5; pointer-events:none }
 .pad { position:absolute; right:16px; bottom:16px; z-index:6; display:none;
   gap:10px }
 .pad button { width:64px; height:64px; border-radius:50%;
-  border:1px solid #55524b; background:rgba(30,29,26,.7); color:#e8e6e1;
+  border:1px solid #b9b2a4; background:rgba(250,248,242,.8); color:#2b2924;
   font:700 22px Georgia; }
 @media (pointer:coarse) { .pad { display:flex } }
 </style></head><body>
@@ -40,9 +40,9 @@ html,body { height:100%; overflow:hidden; background:#0e0d0b;
 <div id="enter">
   <h1>The Risk Museum</h1>
   <div class="tag">Walk the gallery</div>
-  <p>A quiet hall. The Masterpieces on the west wall, the Tulip Wing to the
-  south, the curator&rsquo;s desk to the east &mdash; and the vault in the
-  middle, sealed, as always.</p>
+  <p>White marble, morning light, the strait of Nafpaktos through the south
+  windows. Olive trees inside. The vault &mdash; gold now &mdash; rests
+  beneath one of them. Sealed, as always.</p>
   <p class="keys">click to enter &middot; WASD / arrows to walk &middot;
   mouse to look &middot; look at a frame and click to open it</p>
   <p style="margin-top:1.2rem"><a href="./" onclick="event.stopPropagation()">&larr; back to the museum</a></p>
@@ -53,12 +53,26 @@ const R = new THREE.WebGLRenderer({canvas: document.getElementById('c'), antiali
 R.setPixelRatio(Math.min(devicePixelRatio, 2));
 R.outputColorSpace = THREE.SRGBColorSpace;
 R.toneMapping = THREE.ACESFilmicToneMapping;
-R.toneMappingExposure = 1.05;
+R.toneMappingExposure = 1.18;
+R.shadowMap.enabled = true;
+R.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x11100e);
-const cam = new THREE.PerspectiveCamera(66, 1, .05, 80);
+scene.background = new THREE.Color(0xdfe9f2);
+const envT = (() => {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 256;
+  const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 256);
+  gr.addColorStop(0, '#bcd7ee'); gr.addColorStop(.5, '#f2ede0');
+  gr.addColorStop(.55, '#d9d2c2'); gr.addColorStop(1, '#8f8776');
+  g.fillStyle = gr; g.fillRect(0, 0, 512, 256);
+  const t = new THREE.CanvasTexture(c);
+  t.mapping = THREE.EquirectangularReflectionMapping;
+  t.colorSpace = THREE.SRGBColorSpace; return t;
+})();
+scene.environment = envT;
+const cam = new THREE.PerspectiveCamera(66, 1, .05, 90);
 let yaw = 0, pitch = 0;
-const pos = new THREE.Vector3(0, 1.6, 5.2);
+const pos = new THREE.Vector3(0, 1.6, 6.2);
 
 function cv(w, h, fn) {
   const c = document.createElement('canvas'); c.width = w; c.height = h;
@@ -66,54 +80,63 @@ function cv(w, h, fn) {
   const t = new THREE.CanvasTexture(c);
   t.anisotropy = R.capabilities.getMaxAnisotropy(); return t;
 }
-function noise(g, w, h, alpha, n) {
-  for (let i = 0; i < n; i++) {
-    g.fillStyle = `rgba(${120+Math.random()*60|0},${115+Math.random()*55|0},${105+Math.random()*50|0},${alpha})`;
-    g.fillRect(Math.random()*w, Math.random()*h, 1.6, 1.6);
-  }
-}
 const floorT = cv(1024, 1024, (g, w, h) => {
-  g.fillStyle = '#dbd6cb'; g.fillRect(0, 0, w, h);
-  noise(g, w, h, .16, 24000);
-  g.strokeStyle = 'rgba(120,112,100,.35)'; g.lineWidth = 1.4;
-  for (let i = 0; i < 26; i++) {
+  g.fillStyle = '#f4f0e8'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(180,172,156,.30)'; g.lineWidth = 1.3;
+  for (let i = 0; i < 20; i++) {
     g.beginPath(); let x = Math.random()*w, y = Math.random()*h;
     g.moveTo(x, y);
-    for (let s = 0; s < 6; s++) { x += (Math.random()-.5)*260; y += (Math.random()-.5)*260; g.lineTo(x, y); }
+    for (let s = 0; s < 6; s++) { x += (Math.random()-.5)*300; y += (Math.random()-.5)*300; g.lineTo(x, y); }
     g.stroke();
   }
-  g.strokeStyle = 'rgba(90,84,74,.5)'; g.lineWidth = 3;
+  g.strokeStyle = 'rgba(160,152,136,.45)'; g.lineWidth = 3;
   for (let i = 0; i <= 4; i++) { g.beginPath(); g.moveTo(i*w/4, 0); g.lineTo(i*w/4, h); g.stroke();
     g.beginPath(); g.moveTo(0, i*h/4); g.lineTo(w, i*h/4); g.stroke(); }
 });
-floorT.wrapS = floorT.wrapT = THREE.RepeatWrapping; floorT.repeat.set(5, 3);
+floorT.wrapS = floorT.wrapT = THREE.RepeatWrapping; floorT.repeat.set(6, 3.5);
 const wallT = cv(512, 512, (g, w, h) => {
-  g.fillStyle = '#efe9dd'; g.fillRect(0, 0, w, h); noise(g, w, h, .10, 9000);
-});
-wallT.wrapS = wallT.wrapT = THREE.RepeatWrapping; wallT.repeat.set(6, 2);
-const woodT = cv(256, 256, (g, w, h) => {
-  g.fillStyle = '#3d2a1c'; g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 90; i++) {
-    g.strokeStyle = `rgba(${20+Math.random()*40|0},${12+Math.random()*22|0},8,${.25+Math.random()*.4})`;
-    g.lineWidth = 1 + Math.random()*2;
-    g.beginPath(); g.moveTo(0, Math.random()*h);
-    g.bezierCurveTo(w*.3, Math.random()*h, w*.7, Math.random()*h, w, Math.random()*h); g.stroke();
+  g.fillStyle = '#faf7f0'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 5000; i++) {
+    g.fillStyle = `rgba(200,192,176,${Math.random()*.08})`;
+    g.fillRect(Math.random()*w, Math.random()*h, 1.5, 1.5);
   }
 });
-const darkT = cv(64, 64, g => { g.fillStyle = '#221f1b'; g.fillRect(0, 0, 64, 64); });
+wallT.wrapS = wallT.wrapT = THREE.RepeatWrapping; wallT.repeat.set(6, 2);
+const skyT = cv(512, 256, (g, w, h) => {
+  const gr = g.createLinearGradient(0, 0, 0, h);
+  gr.addColorStop(0, '#aecde8'); gr.addColorStop(.75, '#e8f1f7'); gr.addColorStop(1, '#f4ede0');
+  g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  g.fillStyle = 'rgba(255,255,255,.85)';
+  for (let i = 0; i < 7; i++) {
+    const x = Math.random()*w, y = 30 + Math.random()*90;
+    g.beginPath(); g.ellipse(x, y, 34+Math.random()*30, 10+Math.random()*7, 0, 0, 7); g.fill();
+  }
+});
+const barkT = cv(128, 256, (g, w, h) => {
+  g.fillStyle = '#8a7a64'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 60; i++) {
+    g.strokeStyle = `rgba(70,60,45,${.2+Math.random()*.3})`; g.lineWidth = 1+Math.random()*2.5;
+    g.beginPath(); g.moveTo(Math.random()*w, 0);
+    g.bezierCurveTo(Math.random()*w, h*.4, Math.random()*w, h*.6, Math.random()*w, h); g.stroke();
+  }
+});
 
-const room = {w: 24, d: 14, h: 5.2};
+const room = {w: 28, d: 16, h: 5.6};
 const mats = {
-  floor: new THREE.MeshStandardMaterial({map: floorT, roughness: .35, metalness: .08}),
-  wall: new THREE.MeshStandardMaterial({map: wallT, roughness: .9}),
-  wain: new THREE.MeshStandardMaterial({map: darkT, roughness: .6}),
-  ceil: new THREE.MeshStandardMaterial({color: 0xf4efe6, roughness: .95, side: THREE.DoubleSide}),
-  wood: new THREE.MeshStandardMaterial({map: woodT, roughness: .55}),
-  brass: new THREE.MeshStandardMaterial({color: 0x8a6f3a, roughness: .35, metalness: .8}),
+  floor: new THREE.MeshStandardMaterial({map: floorT, roughness: .28, metalness: .05}),
+  wall: new THREE.MeshStandardMaterial({map: wallT, roughness: .92}),
+  trim: new THREE.MeshStandardMaterial({color: 0xffffff, roughness: .5}),
+  ceil: new THREE.MeshBasicMaterial({color: 0xf6f2ea, side: THREE.DoubleSide}),
+  frame: new THREE.MeshStandardMaterial({color: 0xe8e2d6, roughness: .5}),
+  gold: new THREE.MeshStandardMaterial({color: 0xe6bd52, roughness: .2, metalness: .9}),
+  bark: new THREE.MeshStandardMaterial({map: barkT, roughness: .9}),
+  leaf: new THREE.MeshStandardMaterial({color: 0x7d8f6a, roughness: .95}),
+  leaf2: new THREE.MeshStandardMaterial({color: 0x93a583, roughness: .95}),
+  stone: new THREE.MeshStandardMaterial({color: 0xe9e4d8, roughness: .7}),
 };
 function plane(w, h, m) { return new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); }
 const floor = plane(room.w, room.d, mats.floor);
-floor.rotation.x = -Math.PI/2; scene.add(floor);
+floor.rotation.x = -Math.PI/2; floor.receiveShadow = true; scene.add(floor);
 const ceil = plane(room.w, room.d, mats.ceil);
 ceil.rotation.x = Math.PI/2; ceil.position.y = room.h; scene.add(ceil);
 [[0, -room.d/2, 0], [0, room.d/2, Math.PI], [-room.w/2, 0, Math.PI/2], [room.w/2, 0, -Math.PI/2]]
@@ -121,10 +144,59 @@ ceil.rotation.x = Math.PI/2; ceil.position.y = room.h; scene.add(ceil);
   const w = (Math.abs(x) > 0) ? room.d : room.w;
   const wall = plane(w, room.h, mats.wall);
   wall.position.set(x, room.h/2, z); wall.rotation.y = ry; scene.add(wall);
-  const wain = new THREE.Mesh(new THREE.BoxGeometry(w, .9, .06), mats.wain);
-  wain.position.set(x, .45, z); wain.rotation.y = ry;
-  wain.translateZ(.04); scene.add(wain);
+  const base = new THREE.Mesh(new THREE.BoxGeometry(w, .5, .07), mats.trim);
+  base.position.set(x, .25, z); base.rotation.y = ry;
+  base.translateZ(.045); scene.add(base);
 });
+
+const loader = new THREE.TextureLoader();
+function windowView(imgUrl, w, h, x, y, z, ry) {
+  const g2 = new THREE.Group();
+  const tex = loader.load(imgUrl, t => { t.colorSpace = THREE.SRGBColorSpace; });
+  const view = plane(w, h, new THREE.MeshBasicMaterial({map: tex}));
+  g2.add(view);
+  const trim = (bw, bh, bx, by) => {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, .09), mats.trim);
+    b.position.set(bx, by, .02); g2.add(b);
+  };
+  trim(w + .22, .14, 0, h/2 + .05); trim(w + .22, .14, 0, -h/2 - .05);
+  trim(.14, h + .22, -w/2 - .05, 0); trim(.14, h + .22, w/2 + .05, 0);
+  const nm = Math.round(w / 2.4);
+  for (let i = 1; i < nm; i++) trim(.06, h, -w/2 + i*(w/nm), 0);
+  trim(w, .06, 0, 0);
+  g2.position.set(x, y, z); g2.rotation.y = ry; scene.add(g2);
+}
+windowView('img/bridge_klokova1.jpg', 13, 3.0, 0, 2.7, room.d/2 - .05, Math.PI);
+windowView('img/bridge_klokova2.jpg', 5.6, 2.4, room.w/2 - .05, 2.6, 0, -Math.PI/2);
+const clerestory = plane(room.d - 2, 1.1, new THREE.MeshBasicMaterial({map: skyT}));
+clerestory.position.set(-room.w/2 + .05, 4.6, 0); clerestory.rotation.y = Math.PI/2;
+scene.add(clerestory);
+
+function olive(x, z, s, planter) {
+  const g2 = new THREE.Group();
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(.09*s, .17*s, 1.6*s, 7), mats.bark);
+  trunk.position.y = .8*s + (planter ? .3 : 0); trunk.rotation.z = .07; trunk.castShadow = true;
+  g2.add(trunk);
+  const spots = [[.45, 1.9, .3, .62], [-.4, 2.05, -.2, .56], [.05, 2.3, -.35, .5],
+                 [-.15, 1.75, .45, .48], [.3, 2.25, .15, .44]];
+  spots.forEach(([ox, oy, oz, r], i) => {
+    const c = new THREE.Mesh(new THREE.SphereGeometry(r*s, 9, 7),
+      i % 2 ? mats.leaf : mats.leaf2);
+    c.scale.y = .72; c.position.set(ox*s, oy*s + (planter ? .3 : 0), oz*s);
+    c.castShadow = true; g2.add(c);
+  });
+  if (planter) {
+    const p = new THREE.Mesh(new THREE.CylinderGeometry(.62*s, .5*s, .6, 18), mats.stone);
+    p.position.y = .3; g2.add(p);
+    const soil = new THREE.Mesh(new THREE.CylinderGeometry(.56*s, .56*s, .06, 18),
+      new THREE.MeshStandardMaterial({color: 0x5c4c38, roughness: 1}));
+    soil.position.y = .61; g2.add(soil);
+  }
+  g2.position.set(x, 0, z); scene.add(g2); return g2;
+}
+olive(-11.4, 5.6, 1.0, true);
+olive(11.4, -5.9, .9, true);
+olive(-11.4, -5.6, .9, true);
 
 const clickables = [];
 function placard(w, h, drawFn, opt = {}) {
@@ -132,8 +204,8 @@ function placard(w, h, drawFn, opt = {}) {
   const tex = cv(1024, Math.round(1024*h/w), drawFn);
   const art = plane(w, h, new THREE.MeshStandardMaterial({map: tex, roughness: .85}));
   const fm = opt.red
-    ? new THREE.MeshStandardMaterial({color: 0x6e2320, roughness: .5})
-    : mats.wood;
+    ? new THREE.MeshStandardMaterial({color: 0x8b4a3a, roughness: .5})
+    : mats.frame;
   const frame = new THREE.Mesh(new THREE.BoxGeometry(w + .16, h + .16, .07), fm);
   art.position.z = .045; g2.add(frame); g2.add(art);
   if (opt.href) { art.userData = {href: opt.href, label: opt.label || ''}; clickables.push(art); }
@@ -141,32 +213,32 @@ function placard(w, h, drawFn, opt = {}) {
 }
 function hang(node, x, y, z, ry) { node.position.set(x, y, z); node.rotation.y = ry; scene.add(node); }
 function pText(g, lines, w, opts = {}) {
-  g.fillStyle = opts.bg || '#faf7f0'; g.fillRect(0, 0, w, g.canvas.height);
-  g.fillStyle = opts.ink || '#221f1b'; g.textAlign = 'center';
+  g.fillStyle = opts.bg || '#fcfaf4'; g.fillRect(0, 0, w, g.canvas.height);
+  g.textAlign = 'center';
   let y = opts.top || 130;
   lines.forEach(L => {
-    g.font = L.f || '400 40px Georgia'; g.fillStyle = L.c || opts.ink || '#221f1b';
+    g.font = L.f || '400 40px Georgia'; g.fillStyle = L.c || opts.ink || '#2b2924';
     g.fillText(L.t, w/2, y); y += L.dy || 62;
   });
 }
 
 const Z = room.d/2 - .06, X = room.w/2 - .06;
-hang(placard(4.4, 2.2, (g, w) => pText(g, [
+hang(placard(4.6, 2.2, (g, w) => pText(g, [
   {t: 'THE RISK MUSEUM', f: '700 92px Georgia', dy: 74},
   {t: 'H O M E   O F   R I S K   M A S T E R P I E C E S', f: '400 30px Georgia', c: '#8a6f3a', dy: 96},
   {t: 'Tested the way a quant desk would test them.', f: '400 40px Georgia', dy: 58},
   {t: 'The permanent collection: the ones that didn’t survive.', f: 'italic 400 38px Georgia'},
-], w, {top: 150})), 0, 2.5, -Z, 0);
+], w, {top: 150})), 0, 2.6, -Z, 0);
 const statsP = placard(3.0, 1.7, (g, w) => pText(g, [
   {t: 'The collection', f: '700 56px Georgia', dy: 90},
   {t: 'loading…', f: '400 42px Georgia'},
 ], w), {href: './', label: 'The collection — main floor'});
-hang(statsP, -7.6, 2.4, -Z, 0);
+hang(statsP, -8.2, 2.5, -Z, 0);
 hang(placard(3.0, 1.7, (g, w) => pText(g, [
   {t: 'Membership', f: '700 56px Georgia', dy: 84},
   {t: 'Friend · Member · Patron · Benefactor', f: '400 38px Georgia', dy: 66},
-  {t: 'The vault is not for sale.', f: 'italic 400 40px Georgia', c: '#6e2320'},
-], w), {href: 'membership.html', label: 'Membership'}), 7.6, 2.4, -Z, 0);
+  {t: 'The vault is not for sale.', f: 'italic 400 40px Georgia', c: '#8b4a3a'},
+], w), {href: 'membership.html', label: 'Membership'}), 8.2, 2.5, -Z, 0);
 
 const masters = [
   ['Soros v. the pound', '1992', 'capped loss, forced counterparty'],
@@ -179,35 +251,29 @@ masters.forEach((m, i) => {
   hang(placard(2.05, 1.5, (g, w) => pText(g, [
     {t: m[0], f: '700 58px Georgia', dy: 76},
     {t: m[1], f: '400 36px Georgia', c: '#8a6f3a', dy: 78},
-    {t: m[2], f: 'italic 400 40px Georgia', c: m[3] ? '#6e2320' : '#221f1b'},
+    {t: m[2], f: 'italic 400 40px Georgia', c: m[3] ? '#8b4a3a' : '#2b2924'},
   ], w, {top: 150}), {href: 'masterpieces.html', label: m[0] + ' — Masterpieces Gallery', red: !!m[3]}),
-  -X, 2.35, -5.2 + i*2.6, Math.PI/2);
+  -X, 2.3, -6.0 + i*3.0, Math.PI/2);
 });
 
 function tulipPainting(blue) {
   return (g, w) => {
     const h = g.canvas.height;
-    g.fillStyle = '#e9e2d2'; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#cfc5a8'; g.fillRect(0, h*.72, w, h*.28);
+    const gr = g.createLinearGradient(0, 0, 0, h);
+    gr.addColorStop(0, '#cfe0ea'); gr.addColorStop(.7, '#efe9d6'); gr.addColorStop(1, '#d6cba8');
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 7; i++) {
-      const x = w*(.12 + i*.13), st = h*.72, top = h*(.28 + Math.random()*.18);
-      g.strokeStyle = '#5d6b4a'; g.lineWidth = 7;
+      const x = w*(.12 + i*.13), st = h*.8, top = h*(.3 + Math.random()*.18);
+      g.strokeStyle = '#6c7a52'; g.lineWidth = 7;
       g.beginPath(); g.moveTo(x, st); g.quadraticCurveTo(x + 12, (st+top)/2, x, top); g.stroke();
-      g.fillStyle = (blue && i === 3) ? '#2a5d8b' : '#8b2e2e';
+      g.fillStyle = (blue && i === 3) ? '#2a5d8b' : '#c0392b';
       g.beginPath();
       g.ellipse(x, top - 26, 26, 38, 0, 0, Math.PI*2); g.fill();
-      g.fillStyle = (blue && i === 3) ? '#244f76' : '#77241f';
-      g.beginPath(); g.ellipse(x - 12, top - 30, 12, 30, -.25, 0, Math.PI*2); g.fill();
     }
   };
 }
-hang(placard(2.6, 1.9, tulipPainting(false), {href: './', label: 'The Tulip Wing — mania weather'}), -4.6, 2.4, Z, Math.PI);
-hang(placard(3.4, 2.2, tulipPainting(true), {href: './', label: 'The Tulip Wing — one is always different'}), 0, 2.5, Z, Math.PI);
-hang(placard(2.6, 1.9, (g, w) => pText(g, [
-  {t: 'Haarlem, 1637', f: '700 60px Georgia', dy: 84},
-  {t: 'measured, nightly', f: 'italic 400 42px Georgia', dy: 74},
-  {t: 'run-ups · crash base rates', f: '400 40px Georgia'},
-], w, {top: 160}), {href: './', label: 'Tulip screen — main floor'}), 4.6, 2.4, Z, Math.PI);
+hang(placard(2.5, 1.9, tulipPainting(false), {href: './', label: 'The Tulip Wing — mania weather'}), -9.6, 2.5, Z, Math.PI);
+hang(placard(2.5, 1.9, tulipPainting(true), {href: './', label: 'The Tulip Wing — one is always different'}), 9.6, 2.5, Z, Math.PI);
 
 const notes = [
   ['Curator’s note № 1', 'I named a model after myself.', 'A 1993 model beat it.', 'notes/dimopoulos-chain-v1.html'],
@@ -218,47 +284,56 @@ notes.forEach((n, i) => {
     {t: n[0], f: '400 40px Georgia', c: '#8a6f3a', dy: 84},
     {t: n[1], f: 'italic 700 47px Georgia', dy: 62},
     {t: n[2], f: 'italic 700 47px Georgia'},
-  ], w, {top: 130}), {href: n[3], label: n[0]}), X, 2.4, -3.4 + i*2.5, -Math.PI/2);
+  ], w, {top: 130}), {href: n[3], label: n[0]}), X, 2.4, -6.2 + i*2.6, -Math.PI/2);
 });
 hang(placard(2.0, 1.55, (g, w) => pText(g, [
   {t: 'The Reading Room', f: '700 54px Georgia', dy: 80},
   {t: 'the curator’s shelf,', f: 'italic 400 42px Georgia', dy: 56},
   {t: 'as operating system', f: 'italic 400 42px Georgia'},
-], w, {top: 140}), {href: 'reading-room.html', label: 'The Reading Room'}), X, 2.4, 1.9, -Math.PI/2);
+], w, {top: 140}), {href: 'reading-room.html', label: 'The Reading Room'}), X, 2.4, 3.8, -Math.PI/2);
 hang(placard(2.0, 1.55, (g, w) => pText(g, [
   {t: 'Open collection', f: '700 54px Georgia', dy: 80},
   {t: 'every exhibit, as data —', f: '400 40px Georgia', dy: 56},
   {t: 'study it, prove us wrong', f: 'italic 400 40px Georgia'},
-], w, {top: 140}), {href: 'collection.json', label: 'collection.json'}), X, 2.4, 4.4, -Math.PI/2);
+], w, {top: 140}), {href: 'collection.json', label: 'collection.json'}), X, 2.4, 6.4, -Math.PI/2);
 
-const ped = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.0, 1.5), mats.wain);
-ped.position.set(0, .5, 0); scene.add(ped);
-const vault = new THREE.Mesh(new THREE.BoxGeometry(1.1, .9, 1.1),
-  new THREE.MeshStandardMaterial({color: 0x2a251f, roughness: .35, metalness: .25}));
-vault.position.set(0, 1.45, 0); scene.add(vault);
-const plq = plane(1.1, .34, new THREE.MeshStandardMaterial({
+const ped = new THREE.Mesh(new THREE.BoxGeometry(1.5, .9, 1.5), mats.stone);
+ped.position.set(0, .45, 0); ped.castShadow = true; scene.add(ped);
+const vault = new THREE.Mesh(new THREE.BoxGeometry(1.05, .85, 1.05), mats.gold);
+vault.position.set(0, 1.32, 0); vault.castShadow = true; scene.add(vault);
+const seam = new THREE.Mesh(new THREE.BoxGeometry(1.07, .05, 1.07),
+  new THREE.MeshStandardMaterial({color: 0x9a7c2e, roughness: .4, metalness: .7}));
+seam.position.set(0, 1.32, 0); scene.add(seam);
+const plq = plane(1.15, .34, new THREE.MeshStandardMaterial({
   map: cv(512, 160, (g, w) => pText(g, [
-    {t: 'THE VAULT', f: '700 54px Georgia', c: '#f3e7c8', dy: 54},
-    {t: 'survivors withheld · not for sale', f: 'italic 400 30px Georgia', c: '#d9c691'},
-  ], w, {bg: '#4a3a1e', top: 62})), roughness: .4, metalness: .5}));
-plq.position.set(0, 1.02, .78); plq.rotation.x = -.25; scene.add(plq);
-const shadow = plane(2.6, 2.6, new THREE.MeshBasicMaterial({
-  color: 0x000000, transparent: true, opacity: .28}));
-shadow.rotation.x = -Math.PI/2; shadow.position.y = .012; scene.add(shadow);
+    {t: 'THE VAULT', f: '700 54px Georgia', c: '#5a4315', dy: 54},
+    {t: 'survivors withheld · not for sale', f: 'italic 400 30px Georgia', c: '#75601f'},
+  ], w, {bg: '#e9d9a8', top: 62})), roughness: .5}));
+plq.position.set(0, .95, .78); plq.rotation.x = -.28; scene.add(plq);
+olive(1.45, .55, 1.25, false);
 
-scene.add(new THREE.HemisphereLight(0xfff6e8, 0x35302a, .95));
-const fill = new THREE.PointLight(0xffe8cc, 14, 22, 1.8);
-fill.position.set(0, 2.6, 4.2); scene.add(fill);
-[[0, -Z + 1], [0, Z - 1], [-X + 1, 0], [X - 1, 0]].forEach(([x, z]) => {
-  const s = new THREE.SpotLight(0xffe9c8, 55, 16, .62, .55, 1.6);
-  s.position.set(x*.8, room.h - .3, z*.8);
-  s.target.position.set(x*1.2, 2.2, z*1.2); scene.add(s); scene.add(s.target);
+const bench = new THREE.Mesh(new THREE.BoxGeometry(3.2, .16, .7), mats.stone);
+bench.position.set(0, .52, 4.9); bench.castShadow = true; scene.add(bench);
+[[-1.3, 4.9], [1.3, 4.9]].forEach(([x, z]) => {
+  const leg = new THREE.Mesh(new THREE.BoxGeometry(.28, .44, .6), mats.stone);
+  leg.position.set(x, .22, z); scene.add(leg);
 });
-const vs = new THREE.SpotLight(0xfff0d0, 40, 10, .5, .5, 1.5);
-vs.position.set(0, room.h - .2, 1.6); vs.target = vault; scene.add(vs);
-const strip = plane(room.w*.6, 1.2, new THREE.MeshBasicMaterial({color: 0xfff3dd, side: THREE.DoubleSide}));
-strip.rotation.x = Math.PI/2; strip.position.y = room.h - .02; scene.add(strip);
-window._g = {look: (x, z, y) => { pos.set(x, 1.6, z); yaw = y; }};
+
+scene.add(new THREE.HemisphereLight(0xfdfbf5, 0xb9b2a2, 1.25));
+const sun = new THREE.DirectionalLight(0xfff2dc, 2.6);
+sun.position.set(4, 7.5, 10); sun.target.position.set(-1, 0, -2);
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024);
+sun.shadow.camera.left = -14; sun.shadow.camera.right = 14;
+sun.shadow.camera.top = 12; sun.shadow.camera.bottom = -12;
+scene.add(sun); scene.add(sun.target);
+[[0, -Z + 1], [-X + 1, 0]].forEach(([x, z]) => {
+  const s = new THREE.SpotLight(0xfff3e0, 30, 18, .68, .6, 1.7);
+  s.position.set(x*.8, room.h - .3, z*.8);
+  s.target.position.set(x*1.2, 2.3, z*1.2); scene.add(s); scene.add(s.target);
+});
+const vs = new THREE.SpotLight(0xfff6d8, 26, 12, .5, .55, 1.6);
+vs.position.set(-1.5, room.h - .2, 2.2); vs.target = vault; scene.add(vs);
 
 fetch('collection.json').then(r => r.json()).then(d => {
   const art = statsP.children[1];
@@ -315,6 +390,7 @@ addEventListener('click', () => {
   if (hit && hit.distance < 7) location.href = hit.object.userData.href;
 });
 
+window._g = {look: (x, z, y, p) => { pos.set(x, 1.6, z); yaw = y; pitch = p || 0; }};
 const clock = new THREE.Clock();
 function frame() {
   requestAnimationFrame(frame);
@@ -329,9 +405,9 @@ function frame() {
   if (m.lengthSq()) { m.normalize().multiplyScalar(sp); pos.add(m); }
   pos.x = Math.max(-X + .9, Math.min(X - .9, pos.x));
   pos.z = Math.max(-Z + .9, Math.min(Z - .9, pos.z));
-  if (Math.abs(pos.x) < 1.6 && Math.abs(pos.z) < 1.6) {
+  if (Math.abs(pos.x) < 2.0 && Math.abs(pos.z) < 2.0) {
     (Math.abs(pos.x) > Math.abs(pos.z))
-      ? pos.x = Math.sign(pos.x) * 1.6 : pos.z = Math.sign(pos.z) * 1.6;
+      ? pos.x = Math.sign(pos.x) * 2.0 : pos.z = Math.sign(pos.z) * 2.0;
   }
   cam.position.copy(pos);
   cam.quaternion.setFromEuler(new THREE.Euler(pitch, yaw, 0, 'YXZ'));
