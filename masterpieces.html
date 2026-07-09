@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Masterpieces Gallery — The Risk Museum</title>
+<style>
+:root { --bg:#faf9f7; --fg:#1a1a1a; --muted:#6b6b6b; --card:#ffffff;
+  --line:#e3e0da; --accent:#8b2e2e; --blue:#2a5d8b; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#141414; --fg:#e8e6e1; --muted:#9a9a9a; --card:#1e1e1e;
+    --line:#2e2e2e; --accent:#c96a6a; --blue:#7aa7cc; } }
+* { box-sizing:border-box; margin:0 }
+body { background:var(--bg); color:var(--fg);
+  font:17px/1.6 Georgia,'Times New Roman',serif; padding:2rem 1rem 4rem; }
+main { max-width:720px; margin:0 auto }
+h1 { font-size:2rem }
+.tag { letter-spacing:.22em; text-transform:uppercase; font-size:.75rem;
+  color:var(--muted); margin:.5rem 0 1.6rem }
+p.intro { margin-bottom:1.8rem }
+.work { background:var(--card); border:1px solid var(--line);
+  border-radius:10px; padding:1.2rem 1.4rem; margin:0 0 1.1rem }
+.work h2 { font-size:1.05rem; margin-bottom:.15rem }
+.year { color:var(--muted); font-size:.82rem; margin-bottom:.6rem }
+.work p { margin-bottom:.6rem; font-size:.95rem }
+.anatomy { color:var(--blue); font-weight:bold }
+.warn { border-color:var(--accent) }
+.warn h2 { color:var(--accent) }
+.note { border-left:3px solid var(--accent); padding:.2rem 0 .2rem 1rem;
+  margin:2rem 0; color:var(--muted); font-size:.92rem }
+a { color:var(--blue) }
+footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line);
+  color:var(--muted); font-size:.78rem }
+</style></head><body><main>
+<p><a href="./">&larr; The Risk Museum</a></p>
+<h1>The Masterpieces Gallery</h1>
+<p class="tag">The anatomy of asymmetry</p>
+
+<p class="intro">The Tulip Wing shows what crowds do to prices. This
+gallery shows the opposite masterpiece: trades that made history not by
+predicting better, but by finding <em>structural asymmetry</em> —
+bounded loss, unbounded gain, and a counterparty who had to act. Study
+the anatomy, not the names. None of this is advice; every one of these
+setups is famous precisely because it was rare.</p>
+
+<div class="work">
+<h2>Soros &amp; Druckenmiller vs the pound</h2>
+<div class="year">1992 &middot; the asymmetric masterpiece</div>
+<p>The UK had pegged sterling inside Europe&rsquo;s exchange-rate
+mechanism at a level its economy couldn&rsquo;t support. The peg
+capped how far the pound could rise; devaluation was unbounded.
+Reported profit when the peg broke: over a billion dollars.</p>
+<p><span class="anatomy">Anatomy:</span> capped downside (the band),
+open upside (devaluation), and a forced counterparty — the Bank of
+England had to defend the peg with finite reserves against the whole
+market. Not a prediction. A payoff shape.</p>
+</div>
+
+<div class="work">
+<h2>Burry, Paulson &amp; the CDS trade</h2>
+<div class="year">2006&ndash;2008 &middot; convexity bought cheap</div>
+<p>Credit default swaps on subprime mortgage bonds cost a small running
+premium and paid face value on collapse. The bet could be wrong for
+years at a known, budgeted cost — and right exactly once.</p>
+<p><span class="anatomy">Anatomy:</span> premium-bounded loss, ~10-100x
+payoff, and a structural mispricing (models assumed house prices
+don&rsquo;t fall nationally). The hard part wasn&rsquo;t the idea — it
+was carrying the negative carry until being right. Asymmetry pays the
+patient and breaks the leveraged.</p>
+</div>
+
+<div class="work">
+<h2>The Volkswagen corner</h2>
+<div class="year">2008 &middot; the forced-buyer masterpiece</div>
+<p>Porsche quietly accumulated control of VW shares and options until
+the free float was smaller than the shares short-sellers owed. When
+disclosed, shorts had to buy stock that barely existed; VW briefly
+became the world&rsquo;s most valuable company.</p>
+<p><span class="anatomy">Anatomy:</span> the buyer wasn&rsquo;t willing
+but <em>obligated</em> — covering is mandatory. Forced flows are the
+strongest force in markets; our own surviving signal (dealer hedging)
+is this same anatomy in miniature, every day.</p>
+</div>
+
+<div class="work">
+<h2>Simons &amp; Medallion</h2>
+<div class="year">1988&ndash; &middot; the anti-big-bet masterpiece</div>
+<p>The best-returning fund in history reportedly made its fortune with
+no hero trades at all: thousands of small, fleeting statistical edges,
+sized tightly, compounding at extraordinary rates for three decades.</p>
+<p><span class="anatomy">Anatomy:</span> IR = IC &times; &radic;breadth
+— a tiny edge taken thousands of times beats a large edge taken once,
+and it never bets the firm. The greatest &ldquo;big bet&rdquo; on this
+wall is the standing refusal to make one. This museum&rsquo;s pipeline
+is built in this shape, not Soros&rsquo;s.</p>
+</div>
+
+<div class="work warn">
+<h2>Long-Term Capital Management</h2>
+<div class="year">1998 &middot; the cautionary masterpiece</div>
+<p>Nobel laureates, genuine edges in convergence trades — levered ~25x
+and more, on the assumption that historical correlations bound the
+future. One sovereign default later, the positions were right
+&ldquo;eventually&rdquo; and the fund was gone immediately.</p>
+<p><span class="anatomy">Anatomy, inverted:</span> asymmetry flipped —
+bounded gains (spreads converge a little), unbounded loss (leverage
+meets a regime break). Every exhibit above had capped downside;
+LTCM capped its <em>upside</em> and levered the rest. Markets can stay
+irrational longer than you can stay solvent — this plaque is why the
+museum audits regimes.</p>
+</div>
+
+<div class="note"><strong>Why there is no &ldquo;current big bets&rdquo;
+list here.</strong> If our pipeline ever validates a live asymmetry, it
+goes to the vault, not the wall — published edge is dead edge, and
+recommendations are not what museums do. What we CAN show you is the
+anatomy: capped loss, convex payoff, a counterparty who must act. When
+you think you&rsquo;ve found one, come back to this wall and check your
+specimen against LTCM&rsquo;s plaque first.</div>
+
+<footer>BlueShip-AI Research &middot; The Risk Museum &middot;
+historical episodes as commonly reported; educational only, not
+investment advice.</footer>
+</main></body></html>
