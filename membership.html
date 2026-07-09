@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Membership — The Risk Museum</title>
+<style>
+:root { --bg:#faf9f7; --fg:#1a1a1a; --muted:#6b6b6b; --card:#ffffff;
+  --line:#e3e0da; --accent:#8b2e2e; --blue:#2a5d8b; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#141414; --fg:#e8e6e1; --muted:#9a9a9a; --card:#1e1e1e;
+    --line:#2e2e2e; --accent:#c96a6a; --blue:#7aa7cc; } }
+* { box-sizing:border-box; margin:0 }
+body { background:var(--bg); color:var(--fg);
+  font:17px/1.6 Georgia,'Times New Roman',serif; padding:2rem 1rem 4rem; }
+main { max-width:720px; margin:0 auto }
+h1 { font-size:2rem } h2 { font-size:1.05rem; margin:0 0 .4rem }
+.tag { letter-spacing:.22em; text-transform:uppercase; font-size:.75rem;
+  color:var(--muted); margin:.5rem 0 2rem }
+.tier { background:var(--card); border:1px solid var(--line);
+  border-radius:10px; padding:1.2rem 1.4rem; margin:0 0 1rem }
+.price { color:var(--blue); font-size:.9rem; letter-spacing:.08em;
+  text-transform:uppercase }
+p, li { margin-bottom:.8rem } ul { padding-left:1.2rem }
+.note { border-left:3px solid var(--accent); padding:.2rem 0 .2rem 1rem;
+  margin:2rem 0; color:var(--muted); font-size:.92rem }
+a { color:var(--blue) }
+footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line);
+  color:var(--muted); font-size:.78rem }
+</style></head><body><main>
+<p><a href="./">&larr; The Risk Museum</a></p>
+<h1>Membership</h1>
+<p class="tag">Opening with the first exhibits</p>
+
+<p>The collection is free, forever — that is the point of the museum.
+Membership sells what museums have always sold: <em>earlier doors,
+deeper context, and your name on the wall.</em></p>
+
+<div class="tier"><h2>Friend of the Museum</h2>
+<p class="price">Free</p>
+<ul><li>The permanent collection, after the standard review lag</li>
+<li>Curator&rsquo;s notes and the open collection dataset</li>
+<li>The open-source validation harness</li></ul></div>
+
+<div class="tier"><h2>Member</h2>
+<p class="price">Monthly &mdash; pricing at opening</p>
+<ul><li><strong>Members&rsquo; Preview:</strong> every verdict the morning it
+happens — no review lag</li>
+<li>Full six-stage diagnostics per exhibit (which gate, by how much)</li>
+<li>The monthly Curator&rsquo;s Letter: what the machine learned</li></ul></div>
+
+<div class="tier"><h2>Patron</h2>
+<p class="price">Quarterly &mdash; pricing at opening</p>
+<ul><li>Everything in Member</li>
+<li>The Morning Brief: the daily research summary the machine writes
+for its owner, in your inbox</li>
+<li>The annual printed Catalog of the Collection</li>
+<li>Your name on the Patrons wall</li></ul></div>
+
+<div class="tier"><h2>Benefactor &mdash; by auction</h2>
+<p class="price">Seasonal auctions</p>
+<ul><li><strong>Exhibit sponsorship:</strong> a permanent plaque on one
+work in the collection (&ldquo;This burial made possible by&hellip;&rdquo;)</li>
+<li>First edition of the annual Catalog, numbered</li>
+<li>A seat at the annual review — the museum&rsquo;s gala</li></ul></div>
+
+<div class="note"><strong>The vault is not for sale.</strong> Surviving
+strategies are never sold, previewed, or auctioned at any tier. Everything
+here is impersonal, educational research publication — no personalized
+investment advice, no signals, no performance promises. Rejections are
+knowledge; knowledge is what museums show.</div>
+
+<p>Waitlist: <a href="https://github.com/BlueShip-AI/the-risk-museum/issues/new?title=Membership+waitlist&body=Tier+of+interest:">
+open a ticket at the front desk</a> (a GitHub issue) and you&rsquo;ll be
+first through the doors.</p>
+
+<footer>BlueShip-AI Research &middot; educational research only, not
+investment advice.</footer>
+</main></body></html>
