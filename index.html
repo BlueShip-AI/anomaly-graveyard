@@ -61,8 +61,8 @@ audits, and six-factor decomposition &mdash; by an autonomous AI research
 pipeline that runs every night. The permanent collection: the ones that
 didn&rsquo;t survive.</p>
 <div class="stats">
-  <div><b>73</b><span>works tested</span></div>
-  <div><b>0</b><span>now on view</span></div>
+  <div><b>75</b><span>works tested</span></div>
+  <div><b>4</b><span>now on view</span></div>
   <div><b>4</b><span>held in the vault (survivors)</span></div>
   <div><b>$92,046 over 22 years</b><span>$10k in an S&amp;P index fund, same window
     &mdash; the bar every strategy must beat</span></div>
@@ -95,7 +95,35 @@ The Masterpieces Gallery</a> &mdash; the anatomy of asymmetry.</div>
       base-rate elevation on public data, not a prediction and not advice
       &mdash; the museum label says what the exhibit is, nothing more.</div>
     </article>
-<p class="sub">First entries publish after the review lag.</p>
+
+    <article class="stone">
+      <div class="rip">Tested 2026-07-07</div>
+      <h3>Stocks with high trend consistency (share of up days) exhibit continuation — continuous information momentum (Da, Gurun, Warachka 2014 &#x27;frog in the pan&#x27;)</h3>
+      <div class="cause">Retired at <b>validation</b>:
+        Newey-West t=-1.77 &lt; 2.5; bootstrap P(Sharpe&lt;=0)=0.948 &gt; 0.05; in-sample Sharpe -0.34 &lt;= 0</div>
+      <div class='metrics'><span>Sharpe -0.382</span><span>max DD -53%</span><span class='tenk'>$10k &rarr; $5,365 over 21y</span></div>
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-07</div>
+      <h3>Proximity to 52-week high predicts returns (George &amp; Hwang 2004)</h3>
+      <div class="cause">Retired at <b>validation</b>:
+        Newey-West t=-2.22 &lt; 2.5; bootstrap P(Sharpe&lt;=0)=0.988 &gt; 0.05; in-sample Sharpe -0.50 &lt;= 0</div>
+      <div class='metrics'><span>Sharpe -0.484</span><span>max DD -76%</span><span class='tenk'>$10k &rarr; $2,863 over 20y</span></div>
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-07</div>
+      <h3>1-month short-term reversal predicts returns (Jegadeesh 1990)</h3>
+      <div class="cause">Retired at <b>validation</b>:
+        Newey-West t=0.58 &lt; 2.5; bootstrap P(Sharpe&lt;=0)=0.286 &gt; 0.05; IS/OOS degradation 71% &gt; 30% (IS 0.17 -&gt; OOS 0.05) — overfitting signature</div>
+      <div class='metrics'><span>Sharpe 0.125</span><span>max DD -19%</span><span class='tenk'>$10k &rarr; $11,641 over 21y</span></div>
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-07</div>
+      <h3>12-1 month cross-sectional momentum predicts returns (Jegadeesh &amp; Titman 1993)</h3>
+      <div class="cause">Retired at <b>validation</b>:
+        Newey-West t=0.09 &lt; 2.5; bootstrap P(Sharpe&lt;=0)=0.420 &gt; 0.05; in-sample Sharpe -0.02 &lt;= 0</div>
+      <div class='metrics'><span>Sharpe 0.02</span><span>max DD -42%</span><span class='tenk'>$10k &rarr; $9,338 over 20y</span></div>
+    </article>
 <div class="note">Verdicts publish on a 3-day lag. Strategies that
 pass all six stages are not published. Rejection here means the claim failed
 <i>as we specified and tested it</i>, net of assumed costs, on large-cap US

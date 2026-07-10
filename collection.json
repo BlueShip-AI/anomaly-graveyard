@@ -2,8 +2,53 @@
  "museum": "The Risk Museum \u2014 BlueShip-AI Research",
  "url": "https://blueship-ai.github.io/the-risk-museum/",
  "exported": "2026-07-10",
- "works_tested": 73,
+ "works_tested": 75,
  "in_the_vault": 4,
  "license": "CC BY 4.0 \u2014 reuse with attribution",
- "exhibits": []
+ "exhibits": [
+  {
+   "claim": "Stocks with high trend consistency (share of up days) exhibit continuation \u2014 continuous information momentum (Da, Gurun, Warachka 2014 'frog in the pan')",
+   "stage": "validation",
+   "reason": "Newey-West t=-1.77 < 2.5; bootstrap P(Sharpe<=0)=0.948 > 0.05; in-sample Sharpe -0.34 <= 0",
+   "status": "rejected",
+   "tested": "2026-07-07",
+   "sharpe": -0.382,
+   "dd": -0.5257,
+   "tenk": "$5,365",
+   "years": "21"
+  },
+  {
+   "claim": "Proximity to 52-week high predicts returns (George & Hwang 2004)",
+   "stage": "validation",
+   "reason": "Newey-West t=-2.22 < 2.5; bootstrap P(Sharpe<=0)=0.988 > 0.05; in-sample Sharpe -0.50 <= 0",
+   "status": "rejected",
+   "tested": "2026-07-07",
+   "sharpe": -0.484,
+   "dd": -0.7598,
+   "tenk": "$2,863",
+   "years": "20"
+  },
+  {
+   "claim": "1-month short-term reversal predicts returns (Jegadeesh 1990)",
+   "stage": "validation",
+   "reason": "Newey-West t=0.58 < 2.5; bootstrap P(Sharpe<=0)=0.286 > 0.05; IS/OOS degradation 71% > 30% (IS 0.17 -> OOS 0.05) \u2014 overfitting signature",
+   "status": "rejected",
+   "tested": "2026-07-07",
+   "sharpe": 0.125,
+   "dd": -0.1903,
+   "tenk": "$11,641",
+   "years": "21"
+  },
+  {
+   "claim": "12-1 month cross-sectional momentum predicts returns (Jegadeesh & Titman 1993)",
+   "stage": "validation",
+   "reason": "Newey-West t=0.09 < 2.5; bootstrap P(Sharpe<=0)=0.420 > 0.05; in-sample Sharpe -0.02 <= 0",
+   "status": "rejected",
+   "tested": "2026-07-07",
+   "sharpe": 0.02,
+   "dd": -0.4239,
+   "tenk": "$9,338",
+   "years": "20"
+  }
+ ]
 }
