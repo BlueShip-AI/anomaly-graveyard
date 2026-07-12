@@ -61,8 +61,8 @@ audits, and six-factor decomposition &mdash; by an autonomous AI research
 pipeline that runs every night. The permanent collection: the ones that
 didn&rsquo;t survive.</p>
 <div class="stats">
-  <div><b>82</b><span>works tested</span></div>
-  <div><b>26</b><span>now on view</span></div>
+  <div><b>90</b><span>works tested</span></div>
+  <div><b>49</b><span>now on view</span></div>
   <div><b>3</b><span>held in the vault (survivors)</span></div>
   <div><b>$920,460 over 22 years</b><span>$100k in an S&amp;P index fund, same window
     &mdash; the bar every strategy must beat</span></div>
@@ -96,6 +96,167 @@ The Masterpieces Gallery</a> &mdash; the anatomy of asymmetry.</div>
       &mdash; the museum label says what the exhibit is, nothing more.</div>
     </article>
 
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: group_rank(pv13_com_rk_au / ts_mean(pv13_com_rk_au, 120), industry)</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: -rank(ts_zscore(diluted_shares_outstanding_adjustment_avg, 250))</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: rank(anl4_afv4_div_number / ts_mean(anl4_afv4_div_number, 120))</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: rank(ts_delta(historical_volatility_20, 60))</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: rank(ts_zscore(implied_volatility_mean_skew_720, 250))</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: -rank(ts_zscore(common_stock_buyback_payments, 250))</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: group_rank(ts_zscore(anl4_afv4_dts_spe, 250), subindustry)</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: group_rank(ts_zscore(anl4_bvps_mean, 250), subindustry)</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: group_rank(ts_delta(anl4_capex_mean, 10), subindustry)</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: -rank(ts_delta(equity_awards_granted_non_option_period, 5))</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>BRAIN candidate: -group_rank(ts_zscore(common_stock_issuance_proceeds, 20), subindustry)</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>Heston neural forward-approximator: params-&gt;IV surface to &lt;0.5 vol pt with &gt;=100x speedup (Horvath-Muguruza-Tomas program)</h3>
+      <div class="cause">Retired at <b>approximation-quality</b>:
+        MAE 66.86 vp / speedup 51684x missed gates</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>Dimopoulos Chain v1.5: neural emissions (MLP on HAR+VIX+GJR+state components) beat the full linear baseline OOS</h3>
+      <div class="cause">Retired at <b>vs-linear-frontier-oos</b>:
+        neural emissions did not beat linear ladder (t=-4.37)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>VRP timing E_no_steamroller: signal-gated SVXY beats always-long SVXY</h3>
+      <div class="cause">Retired at <b>excess-vs-always</b>:
+        no significant excess over always-long (t=-0.36, p=0.660)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>VRP timing B_contango: signal-gated SVXY beats always-long SVXY</h3>
+      <div class="cause">Retired at <b>excess-vs-always</b>:
+        no significant excess over always-long (t=0.57, p=0.313)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>VRP timing C_contango_pinned: signal-gated SVXY beats always-long SVXY</h3>
+      <div class="cause">Retired at <b>excess-vs-always</b>:
+        no significant excess over always-long (t=-1.72, p=0.962)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>VRP timing D_pinned: signal-gated SVXY beats always-long SVXY</h3>
+      <div class="cause">Retired at <b>excess-vs-always</b>:
+        no significant excess over always-long (t=-1.68, p=0.959)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-09</div>
+      <h3>GEX-scaled position sizing (0.5x exposed -&gt; 1.5x pinned) beats plain vol-targeted SPY after costs</h3>
+      <div class="cause">Retired at <b>overlay-excess</b>:
+        overlay excess vs plain vol targeting: t=-3.80, p=1.000</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-08</div>
+      <h3>Dimopoulos Chain v1.1: GEX x RV states add next-day range info beyond the combined HAR+VIX+GARCH baseline (OOS, monthly-refit)</h3>
+      <div class="cause">Retired at <b>beyond-full-baseline-oos</b>:
+        Passed vs HAR+VIX+plain-GARCH (t_full=2.83) but failed the stricter GJR-augmented baseline (t_full=1.02) in the same-day rerun; duplicate-claim guard prevented overwrite. Demoted 2026-07-10 — the strictest run is the ver</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-08</div>
+      <h3>Walk-forward-tuned TSMOM family (216 variants, 5y/1y, DD&lt;-35% filter, max-Sharpe selection) beats B&amp;H out-of-sample</h3>
+      <div class="cause">Retired at <b>oos-excess</b>:
+        stitched OOS excess vs B&amp;H: t=-0.62, p=0.738</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-08</div>
+      <h3>TSMOM vol-targeted SPY (video &#x27;winner&#x27; TREND_MOMENTUM_PRO; Moskowitz 2012 lineage) beats buy-and-hold risk-adjusted across regimes</h3>
+      <div class="cause">Retired at <b>excess-significance</b>:
+        excess over B&amp;H is a coin flip (t=0.14, p=0.45); DD reduction real but modest; 9000-attempt source deflator applies</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-08</div>
+      <h3>Circular/servitization quality: firms disclosing longer equipment useful lives and larger warranty/service obligations are durable-asset custodians with underpriced earnings quality (Stahel stocks-vs-flows via Rishel/Circudyne)</h3>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-08</div>
+      <h3>Local-news coverage spikes in small caps precede abnormal returns (GDELT volume, v1 all-outlets)</h3>
+      <div class="cause">Retired at <b>event-study</b>:
+        10d CAR t=-1.3 below 2.5 (upper bound)</div>
+      
+    </article>
     <article class="stone">
       <div class="rip">Tested 2026-07-08</div>
       <h3>BRAIN candidate: group_rank(fnd6_cptnewqv1300_saleq / ts_mean(fnd6_cptnewqv1300_saleq, 120), industry)</h3>

@@ -1,11 +1,172 @@
 {
  "museum": "The Risk Museum \u2014 BlueShip-AI Research",
  "url": "https://blueship-ai.github.io/the-risk-museum/",
- "exported": "2026-07-11",
- "works_tested": 82,
+ "exported": "2026-07-12",
+ "works_tested": 90,
  "in_the_vault": 3,
  "license": "CC BY 4.0 \u2014 reuse with attribution",
  "exhibits": [
+  {
+   "claim": "BRAIN candidate: group_rank(pv13_com_rk_au / ts_mean(pv13_com_rk_au, 120), industry)",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: -rank(ts_zscore(diluted_shares_outstanding_adjustment_avg, 250))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: rank(anl4_afv4_div_number / ts_mean(anl4_afv4_div_number, 120))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: rank(ts_delta(historical_volatility_20, 60))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: rank(ts_zscore(implied_volatility_mean_skew_720, 250))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: -rank(ts_zscore(common_stock_buyback_payments, 250))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: group_rank(ts_zscore(anl4_afv4_dts_spe, 250), subindustry)",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: group_rank(ts_zscore(anl4_bvps_mean, 250), subindustry)",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: group_rank(ts_delta(anl4_capex_mean, 10), subindustry)",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: -rank(ts_delta(equity_awards_granted_non_option_period, 5))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "BRAIN candidate: -group_rank(ts_zscore(common_stock_issuance_proceeds, 20), subindustry)",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "Heston neural forward-approximator: params->IV surface to <0.5 vol pt with >=100x speedup (Horvath-Muguruza-Tomas program)",
+   "stage": "approximation-quality",
+   "reason": "MAE 66.86 vp / speedup 51684x missed gates",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "Dimopoulos Chain v1.5: neural emissions (MLP on HAR+VIX+GJR+state components) beat the full linear baseline OOS",
+   "stage": "vs-linear-frontier-oos",
+   "reason": "neural emissions did not beat linear ladder (t=-4.37)",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "VRP timing E_no_steamroller: signal-gated SVXY beats always-long SVXY",
+   "stage": "excess-vs-always",
+   "reason": "no significant excess over always-long (t=-0.36, p=0.660)",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "VRP timing B_contango: signal-gated SVXY beats always-long SVXY",
+   "stage": "excess-vs-always",
+   "reason": "no significant excess over always-long (t=0.57, p=0.313)",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "VRP timing C_contango_pinned: signal-gated SVXY beats always-long SVXY",
+   "stage": "excess-vs-always",
+   "reason": "no significant excess over always-long (t=-1.72, p=0.962)",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "VRP timing D_pinned: signal-gated SVXY beats always-long SVXY",
+   "stage": "excess-vs-always",
+   "reason": "no significant excess over always-long (t=-1.68, p=0.959)",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "GEX-scaled position sizing (0.5x exposed -> 1.5x pinned) beats plain vol-targeted SPY after costs",
+   "stage": "overlay-excess",
+   "reason": "overlay excess vs plain vol targeting: t=-3.80, p=1.000",
+   "status": "rejected",
+   "tested": "2026-07-09"
+  },
+  {
+   "claim": "Dimopoulos Chain v1.1: GEX x RV states add next-day range info beyond the combined HAR+VIX+GARCH baseline (OOS, monthly-refit)",
+   "stage": "beyond-full-baseline-oos",
+   "reason": "Passed vs HAR+VIX+plain-GARCH (t_full=2.83) but failed the stricter GJR-augmented baseline (t_full=1.02) in the same-day rerun; duplicate-claim guard prevented overwrite. Demoted 2026-07-10 \u2014 the strictest run is the verdict.",
+   "status": "rejected",
+   "tested": "2026-07-08"
+  },
+  {
+   "claim": "Walk-forward-tuned TSMOM family (216 variants, 5y/1y, DD<-35% filter, max-Sharpe selection) beats B&H out-of-sample",
+   "stage": "oos-excess",
+   "reason": "stitched OOS excess vs B&H: t=-0.62, p=0.738",
+   "status": "rejected",
+   "tested": "2026-07-08"
+  },
+  {
+   "claim": "TSMOM vol-targeted SPY (video 'winner' TREND_MOMENTUM_PRO; Moskowitz 2012 lineage) beats buy-and-hold risk-adjusted across regimes",
+   "stage": "excess-significance",
+   "reason": "excess over B&H is a coin flip (t=0.14, p=0.45); DD reduction real but modest; 9000-attempt source deflator applies",
+   "status": "rejected",
+   "tested": "2026-07-08"
+  },
+  {
+   "claim": "Circular/servitization quality: firms disclosing longer equipment useful lives and larger warranty/service obligations are durable-asset custodians with underpriced earnings quality (Stahel stocks-vs-flows via Rishel/Circudyne)",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT",
+   "status": "rejected",
+   "tested": "2026-07-08"
+  },
+  {
+   "claim": "Local-news coverage spikes in small caps precede abnormal returns (GDELT volume, v1 all-outlets)",
+   "stage": "event-study",
+   "reason": "10d CAR t=-1.3 below 2.5 (upper bound)",
+   "status": "rejected",
+   "tested": "2026-07-08"
+  },
   {
    "claim": "BRAIN candidate: group_rank(fnd6_cptnewqv1300_saleq / ts_mean(fnd6_cptnewqv1300_saleq, 120), industry)",
    "stage": "brain-checks",
