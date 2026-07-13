@@ -25,8 +25,25 @@ th { color:var(--muted); font-weight:normal }
 a { color:var(--blue) }
 footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line);
   color:var(--muted); font-size:.8rem }
+.tabs { display:flex; gap:.25rem; margin:0 0 1.6rem; border-bottom:1px solid
+  var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none }
+.tabs::-webkit-scrollbar { display:none }
+.tabs a { padding:.55rem .95rem; white-space:nowrap; color:var(--muted);
+  text-decoration:none; border:1px solid transparent;
+  border-radius:9px 9px 0 0; font-size:.92rem }
+.tabs a:hover { color:var(--fg) }
+.tabs a.on { color:var(--fg); background:var(--card);
+  border-color:var(--line); border-bottom-color:var(--card);
+  margin-bottom:-1px }
 </style></head><body><main>
-<p><a href="../">&larr; The Risk Museum</a></p>
+<nav class="tabs">
+<a href="../">Exhibits</a>
+<a class="on" href="./">Curator&rsquo;s Notes</a>
+<a href="../reading-room.html">Reading Room</a>
+<a href="../masterpieces.html">Masterpieces</a>
+<a href="../membership.html">Membership</a>
+</nav>
 <h1>I named a model after myself. A 1993 model beat it.</h1>
 <p class="sub">Research note #1 &middot; The Dimopoulos Chain, v1 &middot; July 2026</p>
 

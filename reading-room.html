@@ -27,10 +27,27 @@ h1 { font-size:2rem }
 .lens b { color:var(--blue) }
 p.intro { margin-bottom:1.6rem }
 a { color:var(--blue) }
+.tabs { display:flex; gap:.25rem; margin:0 0 1.6rem; border-bottom:1px solid
+  var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none }
+.tabs::-webkit-scrollbar { display:none }
+.tabs a { padding:.55rem .95rem; white-space:nowrap; color:var(--muted);
+  text-decoration:none; border:1px solid transparent;
+  border-radius:9px 9px 0 0; font-size:.92rem }
+.tabs a:hover { color:var(--fg) }
+.tabs a.on { color:var(--fg); background:var(--card);
+  border-color:var(--line); border-bottom-color:var(--card);
+  margin-bottom:-1px }
 footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line);
   color:var(--muted); font-size:.78rem }
 </style></head><body><main>
-<p><a href="./">&larr; The Risk Museum</a></p>
+<nav class="tabs">
+<a href="./">Exhibits</a>
+<a href="notes/">Curator&rsquo;s Notes</a>
+<a class="on" href="reading-room.html">Reading Room</a>
+<a href="masterpieces.html">Masterpieces</a>
+<a href="membership.html">Membership</a>
+</nav>
 <h1>The Reading Room</h1>
 <p class="tag">Books Vasilios recommends</p>
 <p class="intro">The curator&rsquo;s personal recommendations. Every book
