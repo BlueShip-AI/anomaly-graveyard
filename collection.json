@@ -1,11 +1,99 @@
 {
  "museum": "The Risk Museum \u2014 BlueShip-AI Research",
  "url": "https://theriskmuseum.com/",
- "exported": "2026-07-16",
- "works_tested": 141,
+ "exported": "2026-07-17",
+ "works_tested": 153,
  "in_the_vault": 2,
  "license": "CC BY 4.0 \u2014 reuse with attribution",
  "exhibits": [
+  {
+   "claim": "BRAIN candidate: -rank(pv13_revere_parent / ts_mean(pv13_revere_parent, 120))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION",
+   "status": "rejected",
+   "about": "Ranks stocks on how far one data feed sits above its own 120-day average, betting the most stretched will fall back.",
+   "tested": "2026-07-14"
+  },
+  {
+   "claim": "BRAIN candidate: rank(ts_delta(historical_volatility_90, 10))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION",
+   "status": "rejected",
+   "about": "Buys stocks whose price swings have widened over the past two weeks and sells those that are calming down.",
+   "tested": "2026-07-14"
+  },
+  {
+   "claim": "Flight-to-safety nonlinearity (Adrian-Crump-Vogt JF 2019): 1m forward stock returns RISE with lagged VIX while Treasury returns FALL \u2014 replication on SPY/TLT 2012-2026 with post-publication subsample",
+   "stage": "validation",
+   "reason": "Directionally replicates ACV in AND out of sample \u2014 monotone SPY rise, TLT mirror \u2014 but t=2.25 sits under the 2.5 bar with overlapping-window inference, and far under the 5.0 stressed promotion bar. Verdict: the paper's shape is visible in free data; our sample (2012+) lacks the power their 1990+ sample and sieve estimator had. Graded promising-but-unproven, not vaulted.",
+   "status": "rejected",
+   "about": "Tests whether scary markets pay stock holders extra while bond prices have already flown to safety \u2014 fear as a priced premium, not just a mood.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "Vol-managed SPY (Moreira-Muir 2017): scale exposure by inverse realized variance, cap 2x \u2014 higher Sharpe than buy-and-hold",
+   "stage": "validation",
+   "reason": "gate t=1.55; promotion needs t>=5.0 (2.5 base + margin-of-safety)",
+   "status": "rejected",
+   "about": "Holds more stock when markets are calm and less when they are stormy, betting risk isn't paid extra in high-vol months.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "Betting-against-beta (Frazzini-Pedersen 2014): leverage-constrained investors overpay for high beta; L/S beta-neutral spread earns a premium on our panel",
+   "stage": "validation",
+   "reason": "gate t=0.29; promotion needs t>=5.0 (2.5 base + margin-of-safety)",
+   "status": "rejected",
+   "about": "Buys boring low-beta stocks and shorts exciting high-beta ones, levering the boring side to match risk.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "Turn-of-month effect (McConnell-Xu 2008): SPY returns concentrate in the last 2 + first 3 trading days of the month (mechanical month-end flows)",
+   "stage": "validation",
+   "reason": "gate t=0.64; promotion needs t>=5.0 (2.5 base + margin-of-safety)",
+   "status": "rejected",
+   "about": "Owns stocks only around month-end, betting paycheck and fund flows push prices up on a calendar schedule.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "A 10-20% time-series-momentum sleeve improves the GEOMETRIC growth and max drawdown of an equity book vs equity-only (crisis-alpha portfolio construction; Moskowitz-Ooi-Pedersen lineage). Distinct from the rejected standalone walk-forward TSMOM family: this claims drag reduction at the PORTFOLIO level, not timing alpha",
+   "stage": "validation",
+   "reason": "80/20 trend sleeve: CAGR diff -0.06%/yr, t=-0.10 vs bar 2.74 + stressed 2.5 \u2014 did not clear",
+   "status": "rejected",
+   "about": "Adds a small trend-following sleeve to a stock portfolio, betting the hedge cheapens crashes enough to speed up long-run compounding.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "Tax-loss harvesting adds ~1%/yr after-tax alpha in early years on a direct-indexed S&P portfolio, decaying as embedded gains age (Chaudhuri-Burnham-Lo 2020 replication; the Parametric mechanism)",
+   "stage": "validation",
+   "reason": "full-liquidation tax alpha -1.75%/yr, t=-2.34: the pre-tax bleed of sell-the-losers swaps (~180bps/yr) dwarfs the tax credits (~6bps/yr on a no-contribution book). Two honest caveats: (1) survivorship interaction \u2014 on a basket of today's S&P survivors every deep loser recovers by construction, so a rule that exits drawdowns is structurally punished; the measured bleed is an upper bound. (2) single-name correlation replacement is crude vs a tracking-error optimizer \u2014 the implementation IS the product (the Parametric moat). Mechanism not retestable without point-in-time constituents + contribution flows.",
+   "status": "rejected",
+   "about": "Holds the index as individual stocks and systematically sells losers to bank tax losses, swapping into similar names to keep tracking the index.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "BRAIN candidate: rank(ts_zscore(fair_value_derivative_liabilities, 250))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION",
+   "status": "rejected",
+   "about": "Buys big companies whose reported derivative liabilities sit unusually high relative to their own past year.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "BRAIN candidate: rank(ts_delta(implied_volatility_mean_180, 60))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION",
+   "status": "rejected",
+   "about": "Buys big stocks whose options now price in much more turbulence than three months ago, and sells those pricing in less.",
+   "tested": "2026-07-13"
+  },
+  {
+   "claim": "BRAIN candidate: -rank(ts_zscore(anl4_afv4_div_high, 250))",
+   "stage": "brain-checks",
+   "reason": "LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION",
+   "status": "rejected",
+   "about": "Bets against stocks where an analyst-estimate figure sits unusually high versus its own past year, and buys the lows.",
+   "tested": "2026-07-13"
+  },
   {
    "claim": "Quantile-regression VaR on SPY from free implied-moment proxies (VIX level, VIX/VIX3M term slope, CBOE SKEW) beats GARCH-based and historical-simulation VaR on coverage and pinball loss (Blom/de Lange/Risstad JRFM 2023, EURUSD -> US equity translation)",
    "stage": "validation",

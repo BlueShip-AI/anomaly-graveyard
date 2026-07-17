@@ -1,11 +1,11 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Risk Museum — Trading Strategies Tested, Retired &amp; Explained | BlueShip-AI Research</title>
-<meta name="description" content="The Risk Museum: 141+ published trading strategies tested with institutional rigor by an autonomous AI research pipeline — 20-year backtests, real costs, out-of-sample gates. The permanent collection is the ones that didn't survive. Home of Risk Masterpieces.">
+<meta name="description" content="The Risk Museum: 153+ published trading strategies tested with institutional rigor by an autonomous AI research pipeline — 20-year backtests, real costs, out-of-sample gates. The permanent collection is the ones that didn't survive. Home of Risk Masterpieces.">
 <link rel="canonical" href="https://theriskmuseum.com/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Risk Museum — Home of Risk Masterpieces">
-<meta property="og:description" content="141+ trading strategies tested like a quant desk tests them. Every verdict public. New exhibits nightly.">
+<meta property="og:description" content="153+ trading strategies tested like a quant desk tests them. Every verdict public. New exhibits nightly.">
 <meta property="og:url" content="https://theriskmuseum.com/">
 <meta property="og:site_name" content="The Risk Museum">
 <meta name="twitter:card" content="summary">
@@ -84,8 +84,8 @@ audits, and six-factor decomposition &mdash; by an autonomous AI research
 pipeline that runs every night. The permanent collection: the ones that
 didn&rsquo;t survive.</p>
 <div class="stats">
-  <div><b>141</b><span>works tested</span></div>
-  <div><b>55</b><span>now on view</span></div>
+  <div><b>153</b><span>works tested</span></div>
+  <div><b>66</b><span>now on view</span></div>
   <div><b>2</b><span>held in the vault (survivors)</span></div>
   <div><b>$929,860 over 22 years</b><span>$100k in an S&amp;P index fund, same window
     &mdash; the bar every strategy must beat</span></div>
@@ -114,6 +114,94 @@ didn&rsquo;t survive.</p>
       &mdash; the museum label says what the exhibit is, nothing more.</div>
     </article>
 
+    <article class="stone">
+      <div class="rip">Tested 2026-07-14</div>
+      <h3>BRAIN candidate: -rank(pv13_revere_parent / ts_mean(pv13_revere_parent, 120))</h3>
+      <div class='about'>Ranks stocks on how far one data feed sits above its own 120-day average, betting the most stretched will fall back.</div>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-14</div>
+      <h3>BRAIN candidate: rank(ts_delta(historical_volatility_90, 10))</h3>
+      <div class='about'>Buys stocks whose price swings have widened over the past two weeks and sells those that are calming down.</div>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>Flight-to-safety nonlinearity (Adrian-Crump-Vogt JF 2019): 1m forward stock returns RISE with lagged VIX while Treasury returns FALL — replication on SPY/TLT 2012-2026 with post-publication subsample</h3>
+      <div class='about'>Tests whether scary markets pay stock holders extra while bond prices have already flown to safety — fear as a priced premium, not just a mood.</div>
+      <div class="cause">Retired at <b>validation</b>:
+        Directionally replicates ACV in AND out of sample — monotone SPY rise, TLT mirror — but t=2.25 sits under the 2.5 bar with overlapping-window inference, and far under the 5.0 stressed promotion bar. Verdict: the paper&#x27;s </div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>Vol-managed SPY (Moreira-Muir 2017): scale exposure by inverse realized variance, cap 2x — higher Sharpe than buy-and-hold</h3>
+      <div class='about'>Holds more stock when markets are calm and less when they are stormy, betting risk isn&#x27;t paid extra in high-vol months.</div>
+      <div class="cause">Retired at <b>validation</b>:
+        gate t=1.55; promotion needs t&gt;=5.0 (2.5 base + margin-of-safety)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>Betting-against-beta (Frazzini-Pedersen 2014): leverage-constrained investors overpay for high beta; L/S beta-neutral spread earns a premium on our panel</h3>
+      <div class='about'>Buys boring low-beta stocks and shorts exciting high-beta ones, levering the boring side to match risk.</div>
+      <div class="cause">Retired at <b>validation</b>:
+        gate t=0.29; promotion needs t&gt;=5.0 (2.5 base + margin-of-safety)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>Turn-of-month effect (McConnell-Xu 2008): SPY returns concentrate in the last 2 + first 3 trading days of the month (mechanical month-end flows)</h3>
+      <div class='about'>Owns stocks only around month-end, betting paycheck and fund flows push prices up on a calendar schedule.</div>
+      <div class="cause">Retired at <b>validation</b>:
+        gate t=0.64; promotion needs t&gt;=5.0 (2.5 base + margin-of-safety)</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>A 10-20% time-series-momentum sleeve improves the GEOMETRIC growth and max drawdown of an equity book vs equity-only (crisis-alpha portfolio construction; Moskowitz-Ooi-Pedersen lineage). Distinct from the rejected standalone walk-forward TSMOM family: this claims drag reduction at the PORTFOLIO level, not timing alpha</h3>
+      <div class='about'>Adds a small trend-following sleeve to a stock portfolio, betting the hedge cheapens crashes enough to speed up long-run compounding.</div>
+      <div class="cause">Retired at <b>validation</b>:
+        80/20 trend sleeve: CAGR diff -0.06%/yr, t=-0.10 vs bar 2.74 + stressed 2.5 — did not clear</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>Tax-loss harvesting adds ~1%/yr after-tax alpha in early years on a direct-indexed S&amp;P portfolio, decaying as embedded gains age (Chaudhuri-Burnham-Lo 2020 replication; the Parametric mechanism)</h3>
+      <div class='about'>Holds the index as individual stocks and systematically sells losers to bank tax losses, swapping into similar names to keep tracking the index.</div>
+      <div class="cause">Retired at <b>validation</b>:
+        full-liquidation tax alpha -1.75%/yr, t=-2.34: the pre-tax bleed of sell-the-losers swaps (~180bps/yr) dwarfs the tax credits (~6bps/yr on a no-contribution book). Two honest caveats: (1) survivorship interaction — on a </div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>BRAIN candidate: rank(ts_zscore(fair_value_derivative_liabilities, 250))</h3>
+      <div class='about'>Buys big companies whose reported derivative liabilities sit unusually high relative to their own past year.</div>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>BRAIN candidate: rank(ts_delta(implied_volatility_mean_180, 60))</h3>
+      <div class='about'>Buys big stocks whose options now price in much more turbulence than three months ago, and sells those pricing in less.</div>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-13</div>
+      <h3>BRAIN candidate: -rank(ts_zscore(anl4_afv4_div_high, 250))</h3>
+      <div class='about'>Bets against stocks where an analyst-estimate figure sits unusually high versus its own past year, and buys the lows.</div>
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
     <article class="stone">
       <div class="rip">Tested 2026-07-13</div>
       <h3>Quantile-regression VaR on SPY from free implied-moment proxies (VIX level, VIX/VIX3M term slope, CBOE SKEW) beats GARCH-based and historical-simulation VaR on coverage and pinball loss (Blom/de Lange/Risstad JRFM 2023, EURUSD -&gt; US equity translation)</h3>
