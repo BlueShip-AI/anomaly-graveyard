@@ -1,11 +1,11 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Risk Museum — Trading Strategies Tested, Retired &amp; Explained | BlueShip-AI Research</title>
-<meta name="description" content="The Risk Museum: 153+ published trading strategies tested with institutional rigor by an autonomous AI research pipeline — 20-year backtests, real costs, out-of-sample gates. The permanent collection is the ones that didn't survive. Home of Risk Masterpieces.">
+<meta name="description" content="The Risk Museum: 158+ published trading strategies tested with institutional rigor by an autonomous AI research pipeline — 20-year backtests, real costs, out-of-sample gates. The permanent collection is the ones that didn't survive. Home of Risk Masterpieces.">
 <link rel="canonical" href="https://theriskmuseum.com/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Risk Museum — Home of Risk Masterpieces">
-<meta property="og:description" content="153+ trading strategies tested like a quant desk tests them. Every verdict public. New exhibits nightly.">
+<meta property="og:description" content="158+ trading strategies tested like a quant desk tests them. Every verdict public. New exhibits nightly.">
 <meta property="og:url" content="https://theriskmuseum.com/">
 <meta property="og:site_name" content="The Risk Museum">
 <meta name="twitter:card" content="summary">
@@ -84,8 +84,8 @@ audits, and six-factor decomposition &mdash; by an autonomous AI research
 pipeline that runs every night. The permanent collection: the ones that
 didn&rsquo;t survive.</p>
 <div class="stats">
-  <div><b>153</b><span>works tested</span></div>
-  <div><b>66</b><span>now on view</span></div>
+  <div><b>158</b><span>works tested</span></div>
+  <div><b>78</b><span>now on view</span></div>
   <div><b>2</b><span>held in the vault (survivors)</span></div>
   <div><b>$929,860 over 22 years</b><span>$100k in an S&amp;P index fund, same window
     &mdash; the bar every strategy must beat</span></div>
@@ -114,6 +114,102 @@ didn&rsquo;t survive.</p>
       &mdash; the museum label says what the exhibit is, nothing more.</div>
     </article>
 
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: rank(ts_rank(pv13_custretsig_retsig, 250))</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: rank(anl4_cfo_number / ts_mean(anl4_cfo_number, 120))</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: rank(ts_corr(implied_volatility_mean_90, diluted_shares_outstanding_adjustment_avg, 120))</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: group_rank(anl4_af_div_value / ts_mean(anl4_af_div_value, 120), industry)</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: group_rank(debt_repayments_total_2 / ts_mean(debt_repayments_total_2, 120), industry)</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: rank(ts_zscore(implied_volatility_mean_1080, 250))</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: group_rank(ts_delta(actual_sales_value_annual, 10), subindustry)</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: rank(ts_corr(implied_volatility_mean_30, returns, 20))</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: group_zscore(ts_delta(parkinson_volatility_150, 120), industry)</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: -group_rank(ts_zscore(historical_volatility_30, 250), sector)</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: rank(ts_corr(anl4_cff_mean, snt_buzz_bfl_fast_d1, 120))</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, LOW_SUB_UNIVERSE_SHARPE, SELF_CORRELATION</div>
+      
+    </article>
+    <article class="stone">
+      <div class="rip">Tested 2026-07-15</div>
+      <h3>BRAIN candidate: -group_rank(ts_zscore(fnd6_fatp, 20), subindustry)</h3>
+      
+      <div class="cause">Retired at <b>brain-checks</b>:
+        LOW_SHARPE, LOW_FITNESS, CONCENTRATED_WEIGHT, SELF_CORRELATION</div>
+      
+    </article>
     <article class="stone">
       <div class="rip">Tested 2026-07-14</div>
       <h3>BRAIN candidate: -rank(pv13_revere_parent / ts_mean(pv13_revere_parent, 120))</h3>
