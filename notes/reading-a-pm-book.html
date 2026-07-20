@@ -1,0 +1,144 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research note: How to Read a PM's Book — The Risk Museum</title>
+<meta name="description" content="Field notes on dissecting a portfolio manager's book with factors, and the drawdown protocol — what to do when a PM is losing money.">
+<link rel="canonical" href="https://theriskmuseum.com/notes/reading-a-pm-book.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root { --bg:#faf9f7; --fg:#1a1a1a; --muted:#6b6b6b; --card:#ffffff;
+  --line:#e3e0da; --accent:#8b2e2e; --blue:#2a5d8b; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#141414; --fg:#e8e6e1; --muted:#9a9a9a; --card:#1e1e1e;
+    --line:#2e2e2e; --accent:#c96a6a; --blue:#7aa7cc; } }
+* { box-sizing:border-box; margin:0 }
+body { background:var(--bg); color:var(--fg);
+  font:17px/1.6 Georgia,'Times New Roman',serif; padding:2rem 1rem 4rem; }
+main { max-width:720px; margin:0 auto }
+h1 { font-size:1.9rem; letter-spacing:.01em; margin-bottom:.4rem }
+h2 { font-size:1.15rem; margin:2rem 0 .6rem }
+p, li { margin-bottom:.9rem; color:var(--fg) }
+ol, ul { padding-left:1.4rem }
+.sub { color:var(--muted); margin-bottom:2rem }
+.note { border-left:3px solid var(--blue); padding:.2rem 0 .2rem 1rem;
+  margin:1.6rem 0; color:var(--muted); font-size:.95rem }
+a { color:var(--blue) }
+footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line);
+  color:var(--muted); font-size:.8rem }
+.tabs { display:flex; gap:.25rem; margin:0 0 1.6rem; border-bottom:1px solid
+  var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none }
+.tabs::-webkit-scrollbar { display:none }
+.tabs a { padding:.55rem .95rem; white-space:nowrap; color:var(--muted);
+  text-decoration:none; border:1px solid transparent;
+  border-radius:9px 9px 0 0; font-size:.92rem }
+.tabs a:hover { color:var(--fg) }
+.tabs a.on { color:var(--fg); background:var(--card);
+  border-color:var(--line); border-bottom-color:var(--card);
+  margin-bottom:-1px }
+</style></head><body><main>
+<nav class="tabs">
+<a href="../">Exhibits</a>
+<a class="on" href="./">Contributors Notes</a>
+<a href="../reading-room.html">Reading Room</a>
+<a href="../masterpieces.html">Masterpieces</a>
+<a href="../membership.html">Membership</a>
+</nav>
+<h1>How to Read a PM&rsquo;s Book</h1>
+<p class="sub">by V. Dimopoulos &middot; Research note #4 &middot; field
+notes on factor dissection and the drawdown protocol &middot; July 2026</p>
+
+<p>A portfolio is a set of claims. The portfolio manager claims the
+returns come from his ideas; the risk seat&rsquo;s job is to find out
+what the book actually owns. These are field notes from fifteen years
+on the risk side of that conversation &mdash; two disciplines, both
+practiced nightly by this museum&rsquo;s own machine on its own
+strategies.</p>
+
+<h2>Part I &mdash; The dissection: intended versus unintended</h2>
+<p>The organizing question is never &ldquo;is the book risky?&rdquo;
+&mdash; risk is the job. The question is <strong>which exposures were
+chosen, and which arrived uninvited.</strong> A fundamental stock
+picker is paid for idiosyncratic judgment; everything else in the book
+is either deliberate ballast or a stowaway. The dissection proceeds in
+six layers, cheapest explanation first:</p>
+<ol>
+<li><strong>Market.</strong> Net and gross beta. The oldest stowaway:
+a &ldquo;hedged&rdquo; book whose longs are high-beta and shorts
+low-beta is net long the market while its net dollars say zero.</li>
+<li><strong>Styles.</strong> Size, value, momentum, quality,
+low-volatility, short-term reversal. Regress the book&rsquo;s returns
+on the factor set; check loadings against what the PM thinks he
+runs.</li>
+<li><strong>Industry and sector.</strong> Concentrations, and the
+peer-relative view &mdash; a &ldquo;diversified&rdquo; book of one
+sector&rsquo;s suppliers is one bet in many costumes.</li>
+<li><strong>Macro sensitivities.</strong> Rates, oil, the dollar
+&mdash; whatever the book&rsquo;s names transmit. Duration is not
+only a bond concept.</li>
+<li><strong>Crowding and liquidity.</strong> Ownership overlap with
+other funds; days-to-liquidate at a sane participation rate. The
+position that cannot be exited is the one that decides the worst
+week.</li>
+<li><strong>The residual share &mdash; the punchline.</strong> After
+all of the above: what fraction of the book&rsquo;s risk is actually
+idiosyncratic? A &ldquo;stock picker&rdquo; whose variance is mostly
+factor is a closet factor fund at stock-picker fees. And run it
+<em>rolling</em>, not quarterly: weights drift, and books wander into
+factor bets that nobody chose &mdash; passivity is not
+factor-neutrality.</li>
+</ol>
+<p>Two humility clauses from this museum&rsquo;s own workshop. First,
+the blame counter: dollar weights lie about where risk lives &mdash;
+decompose by risk contribution, because the pieces sum exactly and
+the ranking rarely matches the position sheet. Second, from our
+random-matrix work: even the &ldquo;residuals&rdquo; can hide a
+common factor in a concentrated regime &mdash; idiosyncratic is a
+label to be verified, not assumed.</p>
+
+<h2>Part II &mdash; The drawdown protocol: when the PM is losing money</h2>
+<p>The worst time to design a policy is inside the loss. The protocol
+exists so that nobody has to be brave or brilliant on the worst day
+&mdash; only obedient to decisions made on a calm one.</p>
+<ol>
+<li><strong>Diagnose before acting.</strong> Decompose the loss:
+factor or idiosyncratic? A few names or the whole book? Inside the
+risk budget or breaching it? &ldquo;Is he losing on his thesis, or on
+exposures he didn&rsquo;t know he had?&rdquo; &mdash; the two have
+opposite remedies, and acting before answering treats both
+wrongly.</li>
+<li><strong>Run the pre-committed ladder.</strong> Early-warning
+indicator &rarr; the PM adjusts; first threshold &rarr; escalation;
+second &rarr; mandatory de-risking. Mechanical de-grossing at
+drawdown levels is not a failure of nerve &mdash; it is the nerve,
+exercised in advance. Triggers set at promotion are never renegotiated
+mid-drawdown; this museum applies the same rule to its own
+strategies.</li>
+<li><strong>Cut in the right order.</strong> Gross first &mdash; it
+lowers the dose while preserving the PM&rsquo;s relative bets. Unintended
+factor exposures second &mdash; hedge or trim the stowaways; they were
+never the thesis. Concentrated and illiquid positions early &mdash;
+the exit you cannot make later must be right-sized while you still
+can. The highest-conviction idiosyncratic names last: they are the
+reason the PM has a seat.</li>
+<li><strong>Separate loss from error.</strong> Good process loses
+money on bad days; that is what risk means. The review asks whether
+the process was followed, not whether the outcome was pleasant.
+But repeated breaches are structure, not weather &mdash; and structure
+escalates.</li>
+<li><strong>Talk to the PM.</strong> Thesis intact, or broken by new
+information? The risk seat&rsquo;s deepest job is keeping a skilled
+PM solvent long enough for the skill to compound &mdash; and knowing
+the difference between defending a position and defending a
+person.</li>
+</ol>
+
+<div class="note">Why this hangs in the museum: the machine behind
+this site runs both disciplines on itself &mdash; risk-contribution
+blame counters and liquidity slices on every backtest, and
+pre-committed retirement triggers on everything promoted. It retired
+the founder&rsquo;s own namesake model under those triggers. A
+protocol you exempt yourself from is a brochure.</div>
+
+<footer>BlueShip-AI Research &middot; The Risk Museum &middot;
+educational research only, not investment advice.</footer>
+</main></body></html>
