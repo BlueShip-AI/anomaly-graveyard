@@ -5,7 +5,8 @@
   "registered": "2026-07-21",
   "probabilities_note": "Priced by the curator 2026-07-21; open to dated revision on incoming data through 2026-07-25, frozen thereafter. engine_band is a base-rate input computed before pricing, shown for transparency.",
   "calibration_record": "Jump Trading World Cup Probability Cup 2026: top 6% of entrants, 620 forecasts, mean Brier 0.231 (coin-flip = 0.25).",
-  "license": "CC BY 4.0 — cite The Risk Museum"
+  "license": "CC BY 4.0 — cite The Risk Museum",
+  "tiers_note": "Each forecast carries a declared conviction tier: CONVICTION (defended under pressure), AGAINST THE CROWD (a priced disagreement with consensus), DECLARED UNCERTAINTY (honestly near the coin, and saying so), or WORKING BOOK. Tiers follow the probabilities; if a price is revised before the freeze, its tier moves with it."
  },
  "forecasts": [
   {
@@ -21,7 +22,8 @@
    "cluster": "US tariff legal rebuild",
    "crowdedness": "semi",
    "bw_claim": "Modern Mercantilism is instrument-agnostic: the regime rebuilds its tariff floor through Section 301 after the IEEPA defeat, or institutions bind.",
-   "status": "open"
+   "status": "open",
+   "tier": "conviction"
   },
   {
    "id": "collected-duty-wedge-2027",
@@ -36,7 +38,8 @@
    "cluster": "US tariff legal rebuild",
    "crowdedness": "uncrowded",
    "bw_claim": "Tariffs as a durable revenue and rebalancing instrument — tested at the cash register, not the announcement.",
-   "status": "open"
+   "status": "open",
+   "tier": "contrarian"
   },
   {
    "id": "china-ree-magnet-exports-2027",
@@ -51,7 +54,8 @@
    "cluster": "China truce / chokepoints",
    "crowdedness": "uncrowded",
    "bw_claim": "Weaponized interdependence — chokepoints as standing instruments of statecraft. The purest Mercantilism x AI collision visible in a single customs line.",
-   "status": "open"
+   "status": "open",
+   "tier": "contrarian"
   },
   {
    "id": "nvda-china-dc-2b",
@@ -66,7 +70,8 @@
    "cluster": "China truce / chokepoints (cross-loads chip-control regime)",
    "crowdedness": "uncrowded",
    "bw_claim": "Is US-China tech trade a negotiable toll regime or a structural mutual embargo? Both capitals now hold a veto — the uncrowded read.",
-   "status": "open"
+   "status": "open",
+   "tier": "book"
   },
   {
    "id": "china-chip-selfsuff-50",
@@ -81,7 +86,8 @@
    "cluster": "Chip-control regime",
    "crowdedness": "semi",
    "bw_claim": "The definitive test of whether containment preserves the US lead or accelerates Chinese self-sufficiency.",
-   "status": "open"
+   "status": "open",
+   "tier": "uncertain"
   },
   {
    "id": "bea-ai-capex-gdp-contrib-2026",
@@ -96,7 +102,8 @@
    "cluster": "AI capex cycle",
    "crowdedness": "semi",
    "bw_claim": "DIRECT test of the most-cited institutional claim of the cycle — AI capex contributing >=140bp to 2026 US growth — in the closest public series.",
-   "status": "open"
+   "status": "open",
+   "tier": "conviction"
   },
   {
    "id": "hyperscaler-capex-2027-plus20",
@@ -111,7 +118,8 @@
    "cluster": "AI capex cycle",
    "crowdedness": "semi",
    "bw_claim": "Compute +60%/yr and capex-boom continuation; a miss below +20% is the first falsifiable signature of the bust chapter the consensus macro view warns about.",
-   "status": "open"
+   "status": "open",
+   "tier": "book"
   },
   {
    "id": "pjm-fourth-cap",
@@ -126,7 +134,8 @@
    "cluster": "Power chokepoint",
    "crowdedness": "semi",
    "bw_claim": "AI capex as a durable macro force — tested at its most binding physical constraint (power), not at the spending line.",
-   "status": "open"
+   "status": "open",
+   "tier": "conviction"
   },
   {
    "id": "wgc-cb-gold-750t-2026",
@@ -141,7 +150,8 @@
    "cluster": "Monetary order",
    "crowdedness": "semi",
    "bw_claim": "DIRECT: gold has displaced Treasuries as the #2 (or #1 at market value, per ECB) reserve asset; a fourth straight 750t+ year at record prices makes the sanctions-era shift permanent.",
-   "status": "open"
+   "status": "open",
+   "tier": "book"
   },
   {
    "id": "tic-foreign-ust-10t",
@@ -156,7 +166,8 @@
    "cluster": "Monetary order (cross-loads rates)",
    "crowdedness": "uncrowded",
    "bw_claim": "The flow side of 'foreign demand for US debt is structurally weakening' — tested in the level series the de-dollarization debate ignores in favor of share data.",
-   "status": "open"
+   "status": "open",
+   "tier": "book"
   },
   {
    "id": "acm-term-premium-100bp",
@@ -171,7 +182,8 @@
    "cluster": "US fiscal / rates",
    "crowdedness": "semi",
    "bw_claim": "DIRECT: Dalio's 'How Countries Go Broke' — Treasury supply exceeding structural demand forces term-premium repricing; AI-capex deficits and mercantilist capital repatriation meet in this number.",
-   "status": "open"
+   "status": "open",
+   "tier": "contrarian"
   },
   {
    "id": "usg-equity-stakes-5-more-2028",
@@ -186,7 +198,8 @@
    "cluster": "State-capitalism execution",
    "crowdedness": "uncrowded",
    "bw_claim": "Every vulnerability gets weaponized, and the state directs private capital: five more closings = a program with a pipeline, not personality-driven one-offs.",
-   "status": "open"
+   "status": "open",
+   "tier": "uncertain"
   },
   {
    "id": "btos-ai-adoption-25pct-2028",
@@ -201,7 +214,8 @@
    "cluster": "AI adoption / disruption",
    "crowdedness": "uncrowded",
    "bw_claim": "The buildout-vs-adoption pricing gap: YES = adoption arriving fast enough to justify the capex; NO = the gap persists into 2029 — the bubble-scenario precondition.",
-   "status": "open"
+   "status": "open",
+   "tier": "uncertain"
   },
   {
    "id": "software-disruption-igv-lag-2029",
@@ -216,7 +230,8 @@
    "cluster": "AI adoption / disruption",
    "crowdedness": "semi",
    "bw_claim": "DIRECT: the ~82% implied 10-year software survival probability — pricing whether AI is sustaining innovation for incumbents or creative destruction.",
-   "status": "open"
+   "status": "open",
+   "tier": "book"
   }
  ]
 }
