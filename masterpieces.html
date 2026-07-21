@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Masterpieces Gallery — The Risk Museum</title>
-<meta name="description" content="The Masterpieces Gallery — the anatomy of asymmetry: Soros, Burry, the VW corner, Medallion, LTCM, plus the Antiquities Wing (Archimedes' pi, Bernoulli's e).">
+<title>Case Studies — Famous Trades and Blowups, Dissected — The Risk Museum</title>
+<meta name="description" content="Case studies read the way a risk desk reads them: Soros, Burry, the VW corner, Medallion, LTCM — plus the blowups that built modern risk practice: the Quant Quake, Volmageddon, GameStop, Archegos. Each ends in a rule this museum's machine enforces.">
 <link rel="canonical" href="https://theriskmuseum.com/masterpieces.html">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
@@ -47,18 +47,26 @@ footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line);
 <a href="./">Tested Strategies</a>
 <a href="notes/">Research/Personal Essays</a>
 <a href="reading-room.html">Reading Room</a>
-<a class="on" href="masterpieces.html">Masterpieces</a>
+<a class="on" href="masterpieces.html">Case Studies</a>
 <a href="membership.html">Membership</a>
 </nav>
-<h1>The Masterpieces Gallery</h1>
-<p class="tag">The anatomy of asymmetry</p>
+<h1>Case Studies</h1>
+<p class="tag">Famous trades and blowups, read the way a risk desk reads them</p>
 
+<p class="intro">History is this museum&rsquo;s second dataset: the
+trades that made fortunes, and the blowups that made modern risk
+practice. Each plaque below is dissected for the <em>transferable
+mechanism</em>, not the story — and ends with the rule this
+museum&rsquo;s own machine enforces because the episode happened.
+None of this is advice; every setup here is famous precisely because
+it was rare.</p>
+
+<h1 style="font-size:1.35rem;margin:2rem 0 .2rem">I. The Asymmetry Gallery</h1>
+<p class="tag">bounded loss, unbounded gain, a counterparty who must act</p>
 <p class="intro">The Tulip Wing shows what crowds do to prices. This
-gallery shows the opposite masterpiece: trades that made history not by
-predicting better, but by finding <em>structural asymmetry</em> —
-bounded loss, unbounded gain, and a counterparty who had to act. Study
-the anatomy, not the names. None of this is advice; every one of these
-setups is famous precisely because it was rare.</p>
+gallery shows the opposite: trades that made history not by predicting
+better, but by finding <em>structural asymmetry</em>. Study the
+anatomy, not the names.</p>
 
 <div class="work">
 <h2>Soros &amp; Druckenmiller vs the pound</h2>
@@ -112,9 +120,17 @@ wall is the standing refusal to make one. This museum&rsquo;s pipeline
 is built in this shape, not Soros&rsquo;s.</p>
 </div>
 
+<h1 style="font-size:1.35rem;margin:2.4rem 0 .2rem">II. The Blowup Wing</h1>
+<p class="tag">the failures that built modern risk practice</p>
+<p class="intro">Risk management is a science whose experiments are run
+by other people, at scale, involuntarily. These five episodes are the
+curriculum: each one broke an assumption the industry didn&rsquo;t know
+it was making, and each one left a rule this museum&rsquo;s machine now
+enforces on itself.</p>
+
 <div class="work warn">
 <h2>Long-Term Capital Management</h2>
-<div class="year">1998 &middot; the cautionary masterpiece</div>
+<div class="year">1998 &middot; leverage meets a regime break</div>
 <p>Nobel laureates, genuine edges in convergence trades — levered ~25x
 and more, on the assumption that historical correlations bound the
 future. One sovereign default later, the positions were right
@@ -127,7 +143,82 @@ irrational longer than you can stay solvent — this plaque is why the
 museum audits regimes.</p>
 </div>
 
-<h1 style="font-size:1.35rem;margin:2.4rem 0 .2rem">The Antiquities Wing</h1>
+<div class="work warn">
+<h2>The Quant Quake</h2>
+<div class="year">August 2007 &middot; when everyone owns the same trade</div>
+<p>Over three days in August 2007, quantitative equity funds suffered
+enormous losses while the overall market barely moved. One large fund
+began liquidating its factor portfolios; every other quant holding the
+same value-and-momentum book bled with it, and their de-risking fed the
+spiral. By Friday prices had largely snapped back &mdash; anyone forced
+out at the bottom locked in the loss permanently.</p>
+<p><span class="anatomy">Anatomy:</span> crowding. Dozens of
+&ldquo;independent&rdquo; models, trained on the same history, had
+converged on the same positions &mdash; so the true exposure was
+<em>other people&rsquo;s leverage</em>, which appears on no position
+sheet. The rule it left behind: crowding is a factor to be measured,
+not a surprise to be survived &mdash; layer five of
+<a href="notes/reading-a-pm-book.html">reading a PM&rsquo;s book</a>,
+and the reason a 13F ownership-overlap study sits in this
+museum&rsquo;s own queue.</p>
+</div>
+
+<div class="work warn">
+<h2>Volmageddon</h2>
+<div class="year">February 5, 2018 &middot; the product that triggered itself</div>
+<p>XIV, a note that profited from calm markets by shorting volatility
+futures, had years of smooth gains &mdash; until a single afternoon
+spike in the VIX forced its own end-of-day rebalancing to buy
+volatility back into a thin market, amplifying the very move that was
+killing it. It lost roughly 95% in a day and was terminated.</p>
+<p><span class="anatomy">Anatomy:</span> the strategy was large
+relative to the market it traded, so its mechanical response to a loss
+made the loss bigger &mdash; reflexivity. Note what did <em>not</em>
+fail: the premise that selling insurance earns a premium remained
+true; the <em>structure</em> died. The rule: know whether your size
+moves your own trigger, and never confuse the survival of an idea with
+the survival of its wrapper. Every exhibit in this museum declares its
+capacity assumption for the same reason.</p>
+</div>
+
+<div class="work warn">
+<h2>GameStop</h2>
+<div class="year">January 2021 &middot; the VW corner, crowdsourced</div>
+<p>Short interest in one stock exceeded its available float. Retail
+buyers &mdash; coordinating in the open &mdash; bought stock and call
+options; dealers hedging those options bought more stock; shorts
+covering bought more still. Funds on the short side lost billions
+being, arguably, <em>right</em> about the valuation.</p>
+<p><span class="anatomy">Anatomy:</span> forced flows again &mdash;
+shorts and option dealers were both <em>obligated</em> buyers, and
+obligation beats opinion at any horizon. Being right is not a risk
+plan when the position&rsquo;s loss is unbounded and the
+counterparty must act. The rule: short-side positions are sized by
+the exit, not the conviction &mdash; and measuring obligated dealer
+flow daily is the anatomy of this museum&rsquo;s own surviving
+signal.</p>
+</div>
+
+<div class="work warn">
+<h2>Archegos</h2>
+<div class="year">March 2021 &middot; the risk nobody added up</div>
+<p>A single family office built concentrated positions in a handful of
+stocks through total-return swaps spread across several investment
+banks. No bank could see the aggregate; each saw an exposure that
+looked survivable alone. When the stocks fell, simultaneous margin
+calls forced block liquidations and roughly $10 billion of combined
+losses across the street.</p>
+<p><span class="anatomy">Anatomy:</span> aggregation failure. Risk
+that isn&rsquo;t summed doesn&rsquo;t disappear &mdash; it compounds
+quietly until it is summed by the market, all at once. The rule: one
+ledger, everything in it. It is why this museum keeps every hypothesis,
+result, and rejection in a single state store, and why its
+multiple-testing penalty counts a <em>family&rsquo;s</em> whole attempt
+history &mdash; each test looking fine alone is exactly how Archegos
+looked to each bank.</p>
+</div>
+
+<h1 style="font-size:1.35rem;margin:2.4rem 0 .2rem">III. The Antiquities Wing</h1>
 <p class="tag">the oldest instruments in the collection</p>
 <p class="intro">Two numbers run every exhibit in this museum. They were
 both discovered as <em>limits of an honest iteration</em> — which is
