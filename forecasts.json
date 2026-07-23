@@ -3,7 +3,7 @@
   "title": "Forecast Wing — pre-registered forecasts",
   "context": "The museum's macro wing: 14 binary forecasts on Modern Mercantilism, AI, and their intersection — the same pre-registration discipline the museum applies to trading strategies, pointed at the macro decade. Objective resolution criteria; status tracked by the nightly pipeline.",
   "registered": "2026-07-21",
-  "probabilities_note": "Priced by the curator 2026-07-21; open to dated revision on incoming data through 2026-07-25, frozen thereafter. Dated revision 2026-07-23: igv 29->35 (software-handoff evidence; moves above base-rate band, tier to contrarian), btos 45->52 (adoption signals; governing-series gap ~5pp, tier to book). Tariff pair holds for the 2026-07-24 Section 122 expiry / Section 301 final action. engine_band is a base-rate input computed before pricing, shown for transparency.",
+  "probabilities_note": "Priced by the curator 2026-07-21; open to dated revision on incoming data through 2026-07-25, frozen thereafter. Revision 2026-07-23a: igv 29->35, btos 45->52 (staged weekly evidence). Revision 2026-07-23b (adversarial pass): wedge 33->37 (pharma Sec-232 at 100% starts 2026-07-31, lifting the statutory base), nvda 39->34 (two US approvals, zero deliveries — the demand-side veto is the binding one), igv 35->30 (index self-hedge: the disruptors sit inside IGV; tier to book), btos 52->58 (post-rewording trend arithmetic). acm holds 55 as a declared fade against the repricing consensus — both institutional views cited in the appendix. Tariff pair holds for the 2026-07-24 Section 122 expiry / Section 301 final action. engine_band is a base-rate input computed before pricing, shown for transparency.",
   "calibration_record": "Jump Trading World Cup Probability Cup 2026: top 6% of entrants, 620 forecasts, mean Brier 0.231 (coin-flip = 0.25).",
   "license": "CC BY 4.0 — cite The Risk Museum",
   "tiers_note": "Each forecast carries a declared conviction tier: CONVICTION (defended under pressure), AGAINST THE CROWD (a priced disagreement with consensus), DECLARED UNCERTAINTY (honestly near the coin, and saying so), or WORKING BOOK. Tiers follow the probabilities; if a price is revised before the freeze, its tier moves with it."
@@ -29,7 +29,7 @@
    "id": "collected-duty-wedge-2027",
    "title": "Statutory vs collected — the wedge",
    "statement": "US calculated duties as a share of customs value of goods imports for consumption exceed 9.0% for calendar year 2027.",
-   "probability": 33,
+   "probability": 37,
    "engine_band": "25-45%",
    "resolution_criteria": "Total calculated duties divided by total customs value, imports for consumption, all countries and commodities, CY2027, from USITC DataWeb (Census source data). Vintage: the annual figure as retrievable after the December-2027 statistical month first publishes (~early Feb 2028) and on or before 2028-03-31; later revisions ignored. Unrounded ratio; YES iff strictly >9.0% (exactly 9.0% = NO). This is the calculated-duties measure (PWBM tracker basis), NOT Treasury/CBP cash collections — refunds do not enter. If DataWeb is unavailable: official Census imports-for-consumption data with calculated-duty and customs-value fields (USA Trade Online); never collections data. If December 2027 is unpublished by 2028-03-31: the same ratio over cumulative CY2027 year-to-date months available.",
    "resolution_source": "USITC DataWeb / US Census",
@@ -61,7 +61,7 @@
    "id": "nvda-china-dc-2b",
    "title": "The double-veto chip trade",
    "statement": "Nvidia reports >=$2B of Data Center revenue attributable to China (incl. Hong Kong) for any single fiscal quarter from FY2027 Q2 through FY2028 Q4.",
-   "probability": 39,
+   "probability": 34,
    "engine_band": "25-45%",
    "resolution_criteria": "Covered quarters: fiscal quarters ending after 2026-07-21 and on or before 2028-01-31 (7 quarters); earlier quarters (incl. the $4.6B H20 quarter) do NOT count. YES if any official Nvidia disclosure published by 2028-03-31 (10-Q/10-K, 8-K or press release, CFO commentary, or executive earnings-call statement per the posted transcript) states China Data Center (or DC compute) revenue >=$2.0B for a single covered quarter. Nvidia's own attribution governs; 'approximately $2B' counts; exactly $2.0B = YES. Percentage disclosures count only if the lowest stated percentage times that quarter's DC revenue >=$2.0B; qualitative descriptors never trigger. Billing-location geography tables do NOT count (must be identified as DC revenue). Multi-quarter totals count only if >= N x $2.0B. Vintage: the latest Nvidia statement as of 2028-03-31; a restatement below $2.0B before then defeats it. NO if no qualifying disclosure by 2028-03-31.",
    "resolution_source": "Nvidia SEC filings, releases, earnings transcripts",
@@ -205,7 +205,7 @@
    "id": "btos-ai-adoption-25pct-2028",
    "title": "Buildout vs adoption, measured",
    "statement": "The share of US businesses reporting current AI use in the Census Bureau's BTOS survey reaches >=25% in any biweekly period ending by 2028-12-31.",
-   "probability": 52,
+   "probability": 58,
    "engine_band": "35-55%",
    "resolution_criteria": "YES if any BTOS biweekly period ending on or before 2028-12-31 shows a national weighted estimate >=25.0% answering Yes on the current-AI-use item in effect for that period (through Oct 2025: use 'in producing goods or services'; from Nov 2025: use 'in any of its business functions' in the two-week reference period), in any vintage of the public files at census.gov/hfp/btos published by 2029-01-31. The published one-decimal national estimate governs; exactly 25.0 = YES. Current use only, not the 'next six months' item. If reworded again → the single current-use item governs; if multiple current-use items → the broadest any-function item. NO if nothing qualifying is published by 2029-01-31 (incl. survey discontinuation or suspension).",
    "resolution_source": "US Census BTOS public files",
@@ -221,7 +221,7 @@
    "id": "software-disruption-igv-lag-2029",
    "title": "The 82% survival bet",
    "statement": "The iShares software ETF (IGV) underperforms SPY by >=25 percentage points in cumulative NAV total return from 2026-12-31 to 2029-12-31.",
-   "probability": 35,
+   "probability": 30,
    "engine_band": "15-30%",
    "resolution_criteria": "YES if IGV cumulative NAV total return minus SPY cumulative NAV total return over the window is <= -25.0pp (exactly -25.0 = YES). Primary: each issuer's published 3-year average annual NAV total return as of 2029-12-31 (ishares.com / ssga.com), cumulative = ((1+r)^3 - 1) x 100, difference unrounded. If either figure is not published by 2030-01-31: chain issuer daily NAV with distributions reinvested on ex-date (Morningstar NAV TR is an acceptable equivalent). First figures published after 2029-12-31 govern. Fund closure/merger/delisting → chain-link the realized fund return with the total-return benchmark index (S&P North American Expanded Technology Software TR / S&P 500 TR or successors) through 2029-12-31.",
    "resolution_source": "iShares/SSGA NAV total-return data; S&P DJ Indices fallback",
@@ -231,7 +231,7 @@
    "crowdedness": "semi",
    "bw_claim": "DIRECT: the ~82% implied 10-year software survival probability — pricing whether AI is sustaining innovation for incumbents or creative destruction.",
    "status": "open",
-   "tier": "contrarian"
+   "tier": "book"
   }
  ]
 }
