@@ -2,10 +2,34 @@
  "museum": "The Risk Museum \u2014 BlueShip-AI Research",
  "url": "https://theriskmuseum.com/",
  "exported": "2026-07-24",
- "works_tested": 212,
+ "works_tested": 213,
  "in_the_vault": 2,
  "license": "CC BY 4.0 \u2014 reuse with attribution",
  "exhibits": [
+  {
+   "claim": "Consumer-credit deterioration predicts consumer-finance equity underperformance: rising card delinquency rates (FRED DRCCLACBS, release-date aligned) lead relative returns of consumer lenders vs market (KKR JD stress-scenario translation)",
+   "stage": "validation",
+   "reason": "rising-vs-falling delinquency: -1.2pct/qtr relative, t=-0.51 on 87 quarters \u2014 declared-underpowered test, honest inconclusive",
+   "status": "rejected",
+   "about": "Watches Americans falling behind on credit cards and bets the lenders' stocks feel it after the data drops.",
+   "tested": "2026-07-21"
+  },
+  {
+   "claim": "7Twelve multi-asset equal-weight (Israelsen 2010) beats 60/40 and SPY on geometric growth and drawdown via cross-asset-class breadth",
+   "stage": "validation",
+   "reason": "7Twelve vs 60/40: CAGR diff -2.51%/yr, t=-1.82 \u2014 cross-asset equal weight did not beat the boring benchmark on this sample",
+   "status": "rejected",
+   "about": "Splits money equally across twelve funds in seven asset classes, betting that true breadth lives across asset classes, not across more stocks.",
+   "tested": "2026-07-21"
+  },
+  {
+   "claim": "Sunshine effect replication (Hirshleifer-Shumway JF 2003): morning cloud cover in New York predicts daily index returns \u2014 the classic behavioral claim, retested 2005-2026 under modern gates",
+   "stage": "validation",
+   "reason": "gloom-day effect -1.2bps/day, t=-0.34 (PRCP>0 (precipitation day)) \u2014 the famous mood effect does not clear modern gates on 2005-2026 data",
+   "status": "rejected",
+   "about": "Tests the famous claim that traders buy more on sunny mornings in New York \u2014 mood as a market force.",
+   "tested": "2026-07-21"
+  },
   {
    "claim": "BRAIN candidate: -rank(implied_volatility_mean_270 / ts_mean(implied_volatility_mean_270, 120))",
    "stage": "brain-checks",
